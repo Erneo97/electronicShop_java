@@ -1,6 +1,8 @@
 package org.example.model.product;
 
 import lombok.Getter;
+import org.example.model.cart.CartProduct;
+import org.example.model.cart.Shoppable;
 import org.example.model.product.variant.Variant;
 
 import java.util.HashSet;
@@ -8,7 +10,7 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Getter
-public abstract class VariantProduct extends Product{
+public abstract class VariantProduct extends Product implements Shoppable {
     private final Set<Variant> variants = new HashSet<>();
 
     public void addVariant(Variant variant) {
@@ -17,6 +19,20 @@ public abstract class VariantProduct extends Product{
 
     public VariantProduct(String id) {
         super(id);
+    }
+
+    public CartProduct toCartProduct(Variant variant) {
+        return new CartProduct(
+                id,
+                name,
+                description,
+                1, // TODO: zmiana ilośc dodawania produktu
+                variant
+        );
+    }
+
+    public boolean checkProductVariantExists(Variant variant) {
+        return variants.contains(variant);
     }
 
     @Override
