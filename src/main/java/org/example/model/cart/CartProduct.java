@@ -9,7 +9,7 @@ import org.example.model.product.variant.Variant;
 @Setter
 public class CartProduct extends Product {
     private final Variant variant;
-    long quantity;
+    private long quantity;
 
     public CartProduct(String id, String name, String description, long quantity, Variant selectedVariant) {
         super(id);
