@@ -6,5 +6,5 @@ import lombok.Data;
 public abstract class Product {
     private final String id;
     private String name, description;
-    private TypeProduct type;
+    private TypeProduct type = TypeProduct.ELECTRONICS;
 }
