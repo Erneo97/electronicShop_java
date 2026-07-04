@@ -8,7 +8,7 @@ import java.util.Set;
 
 @Getter
 public abstract class VariantProduct extends Product{
-    Set<VariantElectronic>  variants = new HashSet<VariantElectronic>();
+    private final Set<VariantElectronic> variants = new HashSet<>();
 
     public VariantProduct(String id) {
         super(id);
