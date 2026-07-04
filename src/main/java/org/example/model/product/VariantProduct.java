@@ -5,6 +5,7 @@ import org.example.model.product.variant.VariantElectronic;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Getter
 public abstract class VariantProduct extends Product{
@@ -16,5 +17,18 @@ public abstract class VariantProduct extends Product{
 
     public VariantProduct(String id) {
         super(id);
+    }
+
+    @Override
+    public String toString() {
+        StringBuffer sb = new StringBuffer();
+        AtomicInteger index = new AtomicInteger(1);
+        sb.append(super.toString());
+        variants.forEach(
+                variant -> {
+                    sb.append(String.format("\tWariant %d:  %s\n", index.getAndIncrement(), variant));
+                }
+        );
+        return sb.toString();
     }
 }

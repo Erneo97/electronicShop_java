@@ -6,7 +6,6 @@ import org.example.model.product.variant.Smartphone;
 import org.example.model.product.variant.TechnicalParameter;
 import org.example.model.product.variant.VariantElectronic;
 import org.example.model.product.variant.VariantItem;
-import org.example.printer.ProductPrinter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,9 +16,7 @@ public class Main {
 
         initProductsSmartphone(products);
 
-        products.forEach(product -> {
-            ProductPrinter.printVariant((VariantProduct) product);
-        });
+        products.forEach(System.out::println);
     }
 
     private static void initProductsSmartphone(List<Product> products) {
