@@ -19,15 +19,12 @@ public class Main {
         products.forEach(System.out::println);
 
         Cart cart = new Cart();
-
         VariantProduct testProduct = (VariantProduct) products.getFirst();
         cart.addToCart(testProduct, testProduct.getVariants().stream().findFirst().get());
-
         VariantProduct testProduc2 = (VariantProduct) products.get(1);
         cart.addToCart(testProduc2, testProduc2.getVariants().stream().findFirst().get());
 
         System.out.println(cart);
-
     }
 
     private static void initProductsSmartphone(List<Product> products) {
@@ -36,7 +33,6 @@ public class Main {
         smartphone1.addVariant(getTestSmartphoneVariant1());
         smartphone1.addVariant(getTestSmartphoneVariant2());
         smartphone2.addVariant(getTestSmartphoneVariant2());
-//        smartphone2.addVariant(getTestSmartphoneVariant1());
         products.add(smartphone1);
         products.add(smartphone2);
     }
