@@ -10,6 +10,10 @@ import java.util.Set;
 public abstract class VariantProduct extends Product{
     private final Set<VariantElectronic> variants = new HashSet<>();
 
+    public void addVariant(VariantElectronic variant) {
+        this.variants.add(variant);
+    }
+
     public VariantProduct(String id) {
         super(id);
     }

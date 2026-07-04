@@ -1,18 +1,25 @@
 package org.example.model.product.variant;
 
-import lombok.Getter;
+import java.util.*;
 
-import java.util.LinkedHashSet;
-import java.util.Objects;
-import java.util.Set;
+import lombok.Getter;
 
 @Getter
 public class VariantElectronic {
-    Set<VariantItem> parameters = new LinkedHashSet<>();
+    private final Set<VariantItem> parameters = new LinkedHashSet<>();
 
     public void addOrChangeParameterToVariant(VariantItem items) {
         parameters.stream().filter(parameters -> parameters.parameter().equals(items.parameter())).findFirst().ifPresent(parameters::remove);
         parameters.add(items);
+    }
+
+    @Override
+    public String toString() {
+        StringBuffer sb = new StringBuffer();
+        parameters.forEach(parameter -> {
+            sb.append(String.format("%10s: %5s; ", parameter.parameter(), parameter.value()));
+        });
+        return sb.toString();
     }
 
     @Override
