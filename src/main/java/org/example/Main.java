@@ -1,10 +1,9 @@
 package org.example;
 
 import org.example.model.product.Product;
-import org.example.model.product.VariantProduct;
 import org.example.model.product.variant.Smartphone;
 import org.example.model.product.variant.TechnicalParameter;
-import org.example.model.product.variant.VariantElectronic;
+import org.example.model.product.variant.Variant;
 import org.example.model.product.variant.VariantItem;
 
 import java.util.ArrayList;
@@ -30,20 +29,20 @@ public class Main {
         products.add(smartphone2);
     }
 
-    private static VariantElectronic getTestSmartphoneVariant1() {
-        VariantElectronic variantElectronic = new VariantElectronic();
-        variantElectronic.addOrChangeParameterToVariant(new VariantItem(TechnicalParameter.COLOR, "Blue"));
-        variantElectronic.addOrChangeParameterToVariant(new VariantItem(TechnicalParameter.MEMORY, "120 GB"));
-        variantElectronic.addOrChangeParameterToVariant(new VariantItem(TechnicalParameter.RAM_SIZE, "16 GB"));
-        return variantElectronic;
+    private static Variant getTestSmartphoneVariant1() {
+        Variant Variant = new Variant();
+        Variant.addOrChangeParameterToVariant(new VariantItem(TechnicalParameter.COLOR, "Blue"));
+        Variant.addOrChangeParameterToVariant(new VariantItem(TechnicalParameter.MEMORY, "120 GB"));
+        Variant.addOrChangeParameterToVariant(new VariantItem(TechnicalParameter.RAM_SIZE, "16 GB"));
+        return Variant;
     }
 
-    private static VariantElectronic getTestSmartphoneVariant2() {
-        VariantElectronic variantElectronic = new VariantElectronic();
-        variantElectronic.addOrChangeParameterToVariant(new VariantItem(TechnicalParameter.COLOR, "Blue"));
-        variantElectronic.addOrChangeParameterToVariant(new VariantItem(TechnicalParameter.MEMORY, "120 GB"));
-        variantElectronic.addOrChangeParameterToVariant(new VariantItem(TechnicalParameter.PROCESSOR, "5 GH"));
-        variantElectronic.addOrChangeParameterToVariant(new VariantItem(TechnicalParameter.RAM_SIZE, "16 GB"));
-        return variantElectronic;
+    private static Variant getTestSmartphoneVariant2() {
+        Variant Variant = new Variant();
+        Variant.addOrChangeParameterToVariant(new VariantItem(TechnicalParameter.COLOR, "Blue"));
+        Variant.addOrChangeParameterToVariant(new VariantItem(TechnicalParameter.MEMORY, "120 GB"));
+        Variant.addOrChangeParameterToVariant(new VariantItem(TechnicalParameter.PROCESSOR, "5 GH"));
+        Variant.addOrChangeParameterToVariant(new VariantItem(TechnicalParameter.RAM_SIZE, "16 GB"));
+        return Variant;
     }
 }

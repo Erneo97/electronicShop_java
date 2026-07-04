@@ -1,7 +1,7 @@
 package org.example.model.product;
 
 import lombok.Getter;
-import org.example.model.product.variant.VariantElectronic;
+import org.example.model.product.variant.Variant;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -9,9 +9,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 @Getter
 public abstract class VariantProduct extends Product{
-    private final Set<VariantElectronic> variants = new HashSet<>();
+    private final Set<Variant> variants = new HashSet<>();
 
-    public void addVariant(VariantElectronic variant) {
+    public void addVariant(Variant variant) {
         this.variants.add(variant);
     }
 

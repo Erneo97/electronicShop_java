@@ -5,7 +5,7 @@ import java.util.*;
 import lombok.Getter;
 
 @Getter
-public class VariantElectronic {
+public class Variant {
     private final Set<VariantItem> parameters = new LinkedHashSet<>();
 
     public void addOrChangeParameterToVariant(VariantItem items) {
@@ -25,7 +25,7 @@ public class VariantElectronic {
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        VariantElectronic that = (VariantElectronic) o;
+        Variant that = (Variant) o;
         return Objects.equals(parameters, that.parameters);
     }
 
