@@ -6,6 +6,7 @@ import org.example.model.product.variant.TechnicalParameter;
 import org.example.model.product.variant.Variant;
 import org.example.model.product.variant.VariantItem;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,19 +31,21 @@ public class Main {
     }
 
     private static Variant getTestSmartphoneVariant1() {
-        Variant Variant = new Variant();
-        Variant.addOrChangeParameterToVariant(new VariantItem(TechnicalParameter.COLOR, "Blue"));
-        Variant.addOrChangeParameterToVariant(new VariantItem(TechnicalParameter.MEMORY, "120 GB"));
-        Variant.addOrChangeParameterToVariant(new VariantItem(TechnicalParameter.RAM_SIZE, "16 GB"));
-        return Variant;
+        Variant variant = new Variant();
+        variant.setPrice(BigDecimal.valueOf(1234.43));
+        variant.addOrChangeParameterToVariant(new VariantItem(TechnicalParameter.COLOR, "Blue"));
+        variant.addOrChangeParameterToVariant(new VariantItem(TechnicalParameter.MEMORY, "120 GB"));
+        variant.addOrChangeParameterToVariant(new VariantItem(TechnicalParameter.RAM_SIZE, "16 GB"));
+        return variant;
     }
 
     private static Variant getTestSmartphoneVariant2() {
-        Variant Variant = new Variant();
-        Variant.addOrChangeParameterToVariant(new VariantItem(TechnicalParameter.COLOR, "Blue"));
-        Variant.addOrChangeParameterToVariant(new VariantItem(TechnicalParameter.MEMORY, "120 GB"));
-        Variant.addOrChangeParameterToVariant(new VariantItem(TechnicalParameter.PROCESSOR, "5 GH"));
-        Variant.addOrChangeParameterToVariant(new VariantItem(TechnicalParameter.RAM_SIZE, "16 GB"));
-        return Variant;
+        Variant variant = new Variant();
+        variant.setPrice(BigDecimal.valueOf(2500));
+        variant.addOrChangeParameterToVariant(new VariantItem(TechnicalParameter.COLOR, "Blue"));
+        variant.addOrChangeParameterToVariant(new VariantItem(TechnicalParameter.MEMORY, "120 GB"));
+        variant.addOrChangeParameterToVariant(new VariantItem(TechnicalParameter.PROCESSOR, "5 GHz"));
+        variant.addOrChangeParameterToVariant(new VariantItem(TechnicalParameter.RAM_SIZE, "16 GB"));
+        return variant;
     }
 }

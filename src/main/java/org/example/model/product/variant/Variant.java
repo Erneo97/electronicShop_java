@@ -1,12 +1,16 @@
 package org.example.model.product.variant;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 public class Variant {
     private final Set<VariantItem> parameters = new LinkedHashSet<>();
+    private BigDecimal price = new BigDecimal("0");
 
     public void addOrChangeParameterToVariant(VariantItem items) {
         parameters.stream().filter(parameters -> parameters.parameter().equals(items.parameter())).findFirst().ifPresent(parameters::remove);
@@ -16,8 +20,9 @@ public class Variant {
     @Override
     public String toString() {
         StringBuffer sb = new StringBuffer();
+        sb.append(String.format("cena: %8.2f pln  ", price.floatValue()));
         parameters.forEach(parameter -> {
-            sb.append(String.format("%10s: %5s; ", parameter.parameter(), parameter.value()));
+            sb.append(String.format("%10s: %5s; ", parameter.parameter().getParameter(), parameter.value()));
         });
         return sb.toString();
     }
