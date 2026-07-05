@@ -12,4 +12,11 @@ public class Server {
         return repository.getAllProducts();
     }
 
+    public void addProduct(Product product) {
+        repository.addNewProduct(product);
+    }
+
+    public void removeProduct(Product product) {
+        repository.removeProduct(product);
+    }
 }

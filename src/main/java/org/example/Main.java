@@ -8,7 +8,7 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         APIClient apiClient = new APIClient();
-        List<Product> products = apiClient.getAllProducts();
+        List<Product> products = apiClient.getProducts();
 
         products.forEach(System.out::println);
 

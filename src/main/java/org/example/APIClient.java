@@ -8,7 +8,16 @@ import java.util.List;
 public class APIClient {
     Server server = new Server();
 
-    public List<Product> getAllProducts() {
+    public List<Product> getProducts() {
         return server.getProducts();
     }
+
+    public void addProduct(Product product) {
+        server.addProduct(product);
+    }
+
+    public void removeProduct(Product product) {
+        server.removeProduct(product);
+    }
+
 }

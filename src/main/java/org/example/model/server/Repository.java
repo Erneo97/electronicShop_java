@@ -26,6 +26,16 @@ public class Repository {
         return products;
     }
 
+    public void addNewProduct(Product product) {
+        // TODO: throw jeżeli nie unikalny
+        products.add(product);
+    }
+
+    public void removeProduct(Product product) {
+        // TODO: throw jeżeli nie istnieje
+        products.remove(product);
+    }
+
     private void initProductsSmartphone(List<Product> products) {
         Smartphone smartphone1 = new Smartphone("Smart1", "Smamsung galaxy s20");
         Smartphone smartphone2 = new Smartphone("Smart2", "Apple 12 PRO");
