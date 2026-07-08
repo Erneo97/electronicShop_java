@@ -10,16 +10,21 @@ import org.example.model.product.variant.VariantItem;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 @Getter
 public class ProductRepository {
     private static List<Product> products;
+    Lock lock = new ReentrantLock();
 
     public ProductRepository() {
-        if( products == null ) {
+        lock.lock();
+        if (products == null) {
             products = new ArrayList<>();
             initProductsSmartphone(products);
         }
+        lock.unlock();
     }
 
     public List<Product> getAllProducts() {
@@ -28,12 +33,16 @@ public class ProductRepository {
 
     public void addNewProduct(Product product) {
         // TODO: throw jeżeli nie unikalny
+        lock.lock();
         products.add(product);
+        lock.unlock();
     }
 
     public void removeProduct(Product product) {
         // TODO: throw jeżeli nie istnieje
+        lock.lock();
         products.remove(product);
+        lock.unlock();
     }
 
     private void initProductsSmartphone(List<Product> products) {
