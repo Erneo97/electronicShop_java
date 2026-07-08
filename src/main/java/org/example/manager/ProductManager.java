@@ -1,4 +1,4 @@
-package org.example.model.server;
+package org.example.manager;
 
 
 import org.example.model.product.Product;
@@ -6,7 +6,7 @@ import org.example.repository.ProductRepository;
 
 import java.util.List;
 
-public class Server {
+public class ProductManager {
     ProductRepository repository = new ProductRepository();
 
     public List<Product> getProducts() {
