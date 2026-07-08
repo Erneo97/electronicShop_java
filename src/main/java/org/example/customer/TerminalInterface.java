@@ -1,4 +1,4 @@
-package org.example;
+package org.example.customer;
 
 import org.example.manager.ProductManager;
 import org.example.model.product.Product;
@@ -19,5 +19,4 @@ public class TerminalInterface {
     public void removeProduct(Product product) {
         productManager.removeProduct(product);
     }
-
 }

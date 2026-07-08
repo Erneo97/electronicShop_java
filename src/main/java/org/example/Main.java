@@ -1,5 +1,6 @@
 package org.example;
 
+import org.example.customer.TerminalInterface;
 import org.example.model.cart.Cart;
 import org.example.model.product.Product;
 import org.example.model.product.VariantProduct;

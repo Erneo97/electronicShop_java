@@ -32,12 +32,12 @@ public class Cart {
         products.forEach(product -> {
             sb.append(String.format("%3d) %3d szt. %s opis: %s\n\t%s\n",
                     index.getAndIncrement(),
-                    product.getQuantity(),
-                    product.getName(),
-                    product.getDescription(),
-                    product.getVariant()));
+                    product.quantity(),
+                    product.name(),
+                    product.description(),
+                    product.selectedVariant()));
         });
-        sb.append(String.format("Całkowita cena: %.2f\n",totalPrice));
+        sb.append(String.format("Całkowita cena: %.2f\n", totalPrice));
         return sb.toString();
     }
 }
