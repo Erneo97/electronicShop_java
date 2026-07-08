@@ -2,11 +2,12 @@ package org.example.model.server;
 
 
 import org.example.model.product.Product;
+import org.example.repository.ProductRepository;
 
 import java.util.List;
 
 public class Server {
-    Repository repository = new Repository();
+    ProductRepository repository = new ProductRepository();
 
     public List<Product> getProducts() {
         return repository.getAllProducts();

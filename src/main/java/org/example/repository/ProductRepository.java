@@ -1,4 +1,4 @@
-package org.example.model.server;
+package org.example.repository;
 
 import lombok.Getter;
 import org.example.model.product.Product;
@@ -12,10 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-public class Repository {
+public class ProductRepository {
     private static List<Product> products;
 
-    public Repository() {
+    public ProductRepository() {
         if( products == null ) {
             products = new ArrayList<>();
             initProductsSmartphone(products);
