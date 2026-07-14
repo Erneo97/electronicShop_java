@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Cart {
-    private final List<OrderItem> products = new ArrayList<>();
+    private final List<CartItem> products = new ArrayList<>();
     private BigDecimal totalPrice = BigDecimal.ZERO;
 
     public void addToCart(Shoppable product, Variant variant) {

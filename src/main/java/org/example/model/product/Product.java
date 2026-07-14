@@ -26,8 +26,8 @@ public class Product implements Shoppable {
     }
 
     @Override
-    public OrderItem addToCart(Variant variant) {
-        return new OrderItem(id, name, description, 1, variant);
+    public CartItem addToCart(Variant variant) {
+        return new CartItem(id, name, description, 1, variant);
     }
 
     public boolean checkProductVariantExists(Variant variant) {
