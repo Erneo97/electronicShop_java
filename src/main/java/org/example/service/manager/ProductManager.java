@@ -1,8 +1,8 @@
-package org.example.manager;
+package org.example.service.manager;
 
 
 import org.example.model.product.Product;
-import org.example.repository.ProductRepository;
+import org.example.service.repository.ProductRepository;
 
 import java.util.List;
 

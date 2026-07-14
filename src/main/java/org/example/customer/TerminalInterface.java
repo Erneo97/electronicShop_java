@@ -1,6 +1,6 @@
 package org.example.customer;
 
-import org.example.manager.ProductManager;
+import org.example.service.manager.ProductManager;
 import org.example.model.product.Product;
 
 import java.util.List;
