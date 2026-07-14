@@ -24,12 +24,12 @@ public class Product implements Shoppable {
     }
 
     @Override
-    public CartItem addToCart(ProductConfiguration variant) {
-        return new CartItem(id, name, description, 1, variant);
+    public CartItem addToCart(ProductConfiguration configuration) {
+        return new CartItem(id, name, description, 1, configuration);
     }
 
-    public boolean checkProductVariantExists(ProductConfiguration variant) {
-        return variants.contains(variant);
+    public boolean checkProductVariantExists(ProductConfiguration configuration) {
+        return variants.contains(configuration);
     }
 
     @Override
