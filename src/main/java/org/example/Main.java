@@ -3,7 +3,7 @@ package org.example;
 import org.example.customer.TerminalInterface;
 import org.example.model.cart.Cart;
 import org.example.model.product.Product;
-import org.example.model.product.VariantProduct;
+
 import java.util.List;
 
 public class Main {
@@ -14,9 +14,9 @@ public class Main {
         products.forEach(System.out::println);
 
         Cart cart = new Cart();
-        VariantProduct testProduct = (VariantProduct) products.getFirst();
+        Product testProduct = products.getFirst();
         cart.addToCart(testProduct, testProduct.getVariants().stream().findFirst().get());
-        VariantProduct testProduc2 = (VariantProduct) products.get(1);
+        Product testProduc2 = products.get(1);
         cart.addToCart(testProduc2, testProduc2.getVariants().stream().findFirst().get());
 
         System.out.println(cart);
