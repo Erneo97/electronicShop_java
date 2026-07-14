@@ -4,8 +4,6 @@ import lombok.Data;
 import lombok.NonNull;
 import org.example.model.cart.CartItem;
 import org.example.model.cart.Shoppable;
-import org.example.model.order.OrderItem;
-import org.example.model.product.variant.Variant;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -19,18 +17,18 @@ public class Product implements Shoppable {
     protected String name, description = "'brak opisu'";
     protected TypeProduct type = TypeProduct.ELECTRONICS;
 
-    private final Set<Variant> variants = new HashSet<>();
+    private final Set<ProductConfiguration> variants = new HashSet<>();
 
-    public void addVariant(Variant variant) {
+    public void addVariant(ProductConfiguration variant) {
         this.variants.add(variant);
     }
 
     @Override
-    public CartItem addToCart(Variant variant) {
+    public CartItem addToCart(ProductConfiguration variant) {
         return new CartItem(id, name, description, 1, variant);
     }
 
-    public boolean checkProductVariantExists(Variant variant) {
+    public boolean checkProductVariantExists(ProductConfiguration variant) {
         return variants.contains(variant);
     }
 

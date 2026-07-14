@@ -1,8 +1,8 @@
 package org.example.model.cart;
 
-import org.example.model.product.variant.Variant;
+import org.example.model.product.ProductConfiguration;
 
 public interface Shoppable {
-    CartItem addToCart(Variant variant);
-    boolean checkProductVariantExists(Variant variant);
+    CartItem addToCart(ProductConfiguration variant);
+    boolean checkProductVariantExists(ProductConfiguration variant);
 }

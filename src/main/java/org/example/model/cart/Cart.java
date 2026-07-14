@@ -1,7 +1,6 @@
 package org.example.model.cart;
 
-import org.example.model.order.OrderItem;
-import org.example.model.product.variant.Variant;
+import org.example.model.product.ProductConfiguration;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -12,7 +11,7 @@ public class Cart {
     private final List<CartItem> products = new ArrayList<>();
     private BigDecimal totalPrice = BigDecimal.ZERO;
 
-    public void addToCart(Shoppable product, Variant variant) {
+    public void addToCart(Shoppable product, ProductConfiguration variant) {
         if (!product.checkProductVariantExists(variant)) {
             return; // TODO: throw un check
         }

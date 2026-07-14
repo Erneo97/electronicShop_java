@@ -1,4 +1,4 @@
-package org.example.model.product.variant;
+package org.example.model.product;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

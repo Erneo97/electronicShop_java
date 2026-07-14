@@ -1,4 +1,4 @@
-package org.example.model.product.variant;
+package org.example.model.product;
 
 import java.math.BigDecimal;
 import java.util.*;
@@ -8,11 +8,11 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Variant {
-    private final Set<VariantItem> parameters = new LinkedHashSet<>();
+public class ProductConfiguration {
+    private final List<ConfigurationParameter> parameters = new ArrayList<>();
     private BigDecimal price = new BigDecimal("0");
 
-    public void addOrChangeParameterToVariant(VariantItem items) {
+    public void addOrChangeParameterToVariant(ConfigurationParameter items) {
         parameters.stream().filter(parameters -> parameters.parameter().equals(items.parameter())).findFirst().ifPresent(parameters::remove);
         parameters.add(items);
     }
@@ -30,7 +30,7 @@ public class Variant {
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        Variant that = (Variant) o;
+        ProductConfiguration that = (ProductConfiguration) o;
         return Objects.equals(parameters, that.parameters);
     }
 

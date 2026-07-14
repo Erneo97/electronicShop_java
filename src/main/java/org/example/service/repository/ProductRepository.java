@@ -2,9 +2,9 @@ package org.example.service.repository;
 
 import lombok.Getter;
 import org.example.model.product.Product;
-import org.example.model.product.variant.TechnicalParameter;
-import org.example.model.product.variant.Variant;
-import org.example.model.product.variant.VariantItem;
+import org.example.model.product.ProductConfiguration;
+import org.example.model.product.TechnicalParameter;
+import org.example.model.product.ConfigurationParameter;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -49,22 +49,22 @@ public class ProductRepository {
         products.add(smartphone2);
     }
 
-    private Variant getTestSmartphoneVariant1() {
-        Variant variant = new Variant();
+    private ProductConfiguration getTestSmartphoneVariant1() {
+        ProductConfiguration variant = new ProductConfiguration();
         variant.setPrice(BigDecimal.valueOf(1234.43));
-        variant.addOrChangeParameterToVariant(new VariantItem(TechnicalParameter.COLOR, "Blue"));
-        variant.addOrChangeParameterToVariant(new VariantItem(TechnicalParameter.MEMORY, "120 GB"));
-        variant.addOrChangeParameterToVariant(new VariantItem(TechnicalParameter.RAM_SIZE, "16 GB"));
+        variant.addOrChangeParameterToVariant(new ConfigurationParameter(TechnicalParameter.COLOR, "Blue"));
+        variant.addOrChangeParameterToVariant(new ConfigurationParameter(TechnicalParameter.MEMORY, "120 GB"));
+        variant.addOrChangeParameterToVariant(new ConfigurationParameter(TechnicalParameter.RAM_SIZE, "16 GB"));
         return variant;
     }
 
-    private Variant getTestSmartphoneVariant2() {
-        Variant variant = new Variant();
+    private ProductConfiguration getTestSmartphoneVariant2() {
+        ProductConfiguration variant = new ProductConfiguration();
         variant.setPrice(BigDecimal.valueOf(2500));
-        variant.addOrChangeParameterToVariant(new VariantItem(TechnicalParameter.COLOR, "Blue"));
-        variant.addOrChangeParameterToVariant(new VariantItem(TechnicalParameter.MEMORY, "120 GB"));
-        variant.addOrChangeParameterToVariant(new VariantItem(TechnicalParameter.PROCESSOR, "5 GHz"));
-        variant.addOrChangeParameterToVariant(new VariantItem(TechnicalParameter.RAM_SIZE, "16 GB"));
+        variant.addOrChangeParameterToVariant(new ConfigurationParameter(TechnicalParameter.COLOR, "Blue"));
+        variant.addOrChangeParameterToVariant(new ConfigurationParameter(TechnicalParameter.MEMORY, "120 GB"));
+        variant.addOrChangeParameterToVariant(new ConfigurationParameter(TechnicalParameter.PROCESSOR, "5 GHz"));
+        variant.addOrChangeParameterToVariant(new ConfigurationParameter(TechnicalParameter.RAM_SIZE, "16 GB"));
         return variant;
     }
 
