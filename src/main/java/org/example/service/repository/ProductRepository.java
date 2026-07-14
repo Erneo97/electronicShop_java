@@ -1,8 +1,7 @@
-package org.example.repository;
+package org.example.service.repository;
 
 import lombok.Getter;
 import org.example.model.product.Product;
-import org.example.model.product.variant.Smartphone;
 import org.example.model.product.variant.TechnicalParameter;
 import org.example.model.product.variant.Variant;
 import org.example.model.product.variant.VariantItem;
@@ -15,16 +14,11 @@ import java.util.concurrent.locks.ReentrantLock;
 
 @Getter
 public class ProductRepository {
-    private static List<Product> products;
+    private final List<Product> products = new ArrayList<>();
     Lock lock = new ReentrantLock();
 
     public ProductRepository() {
-        lock.lock();
-        if (products == null) {
-            products = new ArrayList<>();
-            initProductsSmartphone(products);
-        }
-        lock.unlock();
+        initProductsSmartphone(products);
     }
 
     public List<Product> getAllProducts() {
@@ -46,8 +40,8 @@ public class ProductRepository {
     }
 
     private void initProductsSmartphone(List<Product> products) {
-        Smartphone smartphone1 = new Smartphone("Smart1", "Smamsung galaxy s20");
-        Smartphone smartphone2 = new Smartphone("Smart2", "Apple 12 PRO");
+        Product smartphone1 = new Product("Smamsung galaxy s20");
+        Product smartphone2 = new Product("Apple 12 PRO");
         smartphone1.addVariant(getTestSmartphoneVariant1());
         smartphone1.addVariant(getTestSmartphoneVariant2());
         smartphone2.addVariant(getTestSmartphoneVariant2());
