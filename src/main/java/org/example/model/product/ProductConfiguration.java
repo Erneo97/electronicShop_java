@@ -30,17 +30,22 @@ public class ProductConfiguration {
         StringBuffer sb = new StringBuffer();
         sb.append(parameters.size() + " parametrów.");
         parameters.forEach(parameter ->
-            sb.append(String.format("%10s: %5s; ", parameter.getParameter().getParameter(), parameter.getValue()))
+                sb.append(String.format("%10s: %5s; ", parameter.getParameter().getParameter(), parameter.getValue()))
         );
         return sb.toString();
     }
 
     public boolean isConfigurationAvaliable(ProductConfiguration configuration) { // TODO:
-        return configuration.parameters.contains(this.parameters);
+        return this.parameters.stream()
+                .allMatch(parameter ->
+                        configuration.parameters.stream()
+                                .anyMatch(item -> item.getId() == parameter.getId())
+                );
+
     }
 
     public BigDecimal getTotalPrice() {
-        return parameters.stream().map(ConfigurationParameter::getPrice).reduce(BigDecimal::add).get();
+        return parameters.stream().map(ConfigurationParameter::getPrice).reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
     @Override
