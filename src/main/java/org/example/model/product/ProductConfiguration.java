@@ -11,8 +11,7 @@ import lombok.Setter;
 public class ProductConfiguration {
     private final List<ConfigurationParameter> parameters = new ArrayList<>();
 
-    public void addOrChangeParameterToVariant(ConfigurationParameter items) {
-        parameters.stream().filter(parameters -> parameters.getParameter().equals(items.getParameter())).findFirst().ifPresent(parameters::remove);
+    public void addParameterToConfiguration(ConfigurationParameter items) {
         parameters.add(items);
     }
 
@@ -29,9 +28,10 @@ public class ProductConfiguration {
     @Override
     public String toString() {
         StringBuffer sb = new StringBuffer();
-        parameters.forEach(parameter -> {
-            sb.append(String.format("%10s: %5s; ", parameter.getParameter().getParameter(), parameter.getValue()));
-        });
+        sb.append(parameters.size() + " parametrów.");
+        parameters.forEach(parameter ->
+            sb.append(String.format("%10s: %5s; ", parameter.getParameter().getParameter(), parameter.getValue()))
+        );
         return sb.toString();
     }
 

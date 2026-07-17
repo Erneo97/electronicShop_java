@@ -49,7 +49,6 @@ public class ProductRepository {
         Product smartphone2 = new Product("Apple 12 PRO", new BigDecimal(5000));
         smartphone2.setType(TypeProduct.SMARTPHONE);
         smartphone1.adddConfiguration(getTestSmartphoneVariant1());
-        smartphone1.adddConfiguration(getTestSmartphoneVariant2());
         smartphone2.adddConfiguration(getTestSmartphoneVariant2());
         products.add(smartphone1);
         products.add(smartphone2);
@@ -57,18 +56,18 @@ public class ProductRepository {
 
     private ProductConfiguration getTestSmartphoneVariant1() {
         ProductConfiguration variant = new ProductConfiguration();
-        variant.addOrChangeParameterToVariant(new ConfigurationParameter(TechnicalParameter.COLOR, "Blue", BigDecimal.valueOf(0L)));
-        variant.addOrChangeParameterToVariant(new ConfigurationParameter(TechnicalParameter.MEMORY, "120 GB", BigDecimal.valueOf(1000L)));
-        variant.addOrChangeParameterToVariant(new ConfigurationParameter(TechnicalParameter.RAM_SIZE, "16 GB", BigDecimal.valueOf(200L)));
+        variant.addParameterToConfiguration(new ConfigurationParameter(TechnicalParameter.COLOR, "Blue", BigDecimal.valueOf(0L)));
+        variant.addParameterToConfiguration(new ConfigurationParameter(TechnicalParameter.MEMORY, "120 GB", BigDecimal.valueOf(1000L)));
+        variant.addParameterToConfiguration(new ConfigurationParameter(TechnicalParameter.RAM_SIZE, "16 GB", BigDecimal.valueOf(200L)));
         return variant;
     }
 
     private ProductConfiguration getTestSmartphoneVariant2() {
         ProductConfiguration variant = new ProductConfiguration();
-        variant.addOrChangeParameterToVariant(new ConfigurationParameter(TechnicalParameter.COLOR, "Blue", BigDecimal.valueOf(0L)));
-        variant.addOrChangeParameterToVariant(new ConfigurationParameter(TechnicalParameter.MEMORY, "120 GB", BigDecimal.valueOf(100L)));
-        variant.addOrChangeParameterToVariant(new ConfigurationParameter(TechnicalParameter.PROCESSOR, "7 GHz", BigDecimal.valueOf(1500L)));
-        variant.addOrChangeParameterToVariant(new ConfigurationParameter(TechnicalParameter.RAM_SIZE, "16 GB", BigDecimal.valueOf(100L)));
+        variant.addParameterToConfiguration(new ConfigurationParameter(TechnicalParameter.COLOR, "Blue", BigDecimal.valueOf(0L)));
+        variant.addParameterToConfiguration(new ConfigurationParameter(TechnicalParameter.MEMORY, "120 GB", BigDecimal.valueOf(100L)));
+        variant.addParameterToConfiguration(new ConfigurationParameter(TechnicalParameter.PROCESSOR, "7 GHz", BigDecimal.valueOf(1500L)));
+        variant.addParameterToConfiguration(new ConfigurationParameter(TechnicalParameter.RAM_SIZE, "16 GB", BigDecimal.valueOf(100L)));
         return variant;
     }
 

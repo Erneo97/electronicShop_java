@@ -22,7 +22,7 @@ public class Product implements Shoppable {
     private final ProductConfiguration configuration = new ProductConfiguration();
 
     public void adddConfiguration(ProductConfiguration configuration) {
-        configuration.addAllParameters(configuration);
+        this.configuration.addAllParameters(configuration);
     }
 
     @Override
@@ -40,6 +40,6 @@ public class Product implements Shoppable {
     }
 
     public boolean checkProductVariantExists(ProductConfiguration configuration) {
-        return configuration.isConfigurationAvaliable(configuration);
+        return this.configuration.isConfigurationAvaliable(configuration);
     }
 }
