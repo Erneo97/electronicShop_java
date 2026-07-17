@@ -35,6 +35,6 @@ public class Product implements Shoppable {
 
     @Override
     public String toString() {
-        return String.format("%10s '%s' (%s) Opis: %s\n%s",type.name(), name, id, description, configuration);
+        return String.format("%10s '%s' (%s) Opis: %s\n%s", type.name(), name, id, description, configuration);
     }
 }

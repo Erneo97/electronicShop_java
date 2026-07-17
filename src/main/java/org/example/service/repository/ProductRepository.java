@@ -6,6 +6,7 @@ import org.example.model.product.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -34,6 +35,12 @@ public class ProductRepository {
         lock.lock();
         products.remove(product);
         lock.unlock();
+    }
+
+    public Optional<Product> getProductById(int id) {
+        return products.stream()
+                .filter(product -> product.getId() == id)
+                .findFirst();
     }
 
     private void initProductsSmartphone(List<Product> products) {
