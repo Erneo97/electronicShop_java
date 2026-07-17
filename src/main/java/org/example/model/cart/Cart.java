@@ -11,12 +11,12 @@ public class Cart {
     private final List<CartItem> products = new ArrayList<>();
     private BigDecimal totalPrice = BigDecimal.ZERO;
 
-    public void addToCart(Shoppable product, ProductConfiguration variant) {
-        if (!product.checkProductVariantExists(variant)) {
+    public void addToCart(Shoppable product, ProductConfiguration configuration) {
+        if (!product.checkProductVariantExists(configuration)) {
             return; // TODO: throw un check
         }
-        products.add(product.addToCart(variant));
-        totalPrice = totalPrice.add(variant.getPrice());
+        products.add(product.addToCart(configuration));
+        totalPrice = totalPrice.add(configuration.getTotalPrice());
     }
 
     public void removeFromCardByIndex(int index) {

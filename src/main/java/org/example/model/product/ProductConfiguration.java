@@ -10,21 +10,31 @@ import lombok.Setter;
 @Setter
 public class ProductConfiguration {
     private final List<ConfigurationParameter> parameters = new ArrayList<>();
-    private BigDecimal price = new BigDecimal("0");
 
     public void addOrChangeParameterToVariant(ConfigurationParameter items) {
         parameters.stream().filter(parameters -> parameters.parameter().equals(items.parameter())).findFirst().ifPresent(parameters::remove);
         parameters.add(items);
     }
 
+    public void addAllParameters(ProductConfiguration productConfiguration) {
+        parameters.addAll(productConfiguration.parameters);
+    }
+
     @Override
     public String toString() {
         StringBuffer sb = new StringBuffer();
-        sb.append(String.format("cena: %8.2f pln  ", price.floatValue()));
         parameters.forEach(parameter -> {
             sb.append(String.format("%10s: %5s; ", parameter.parameter().getParameter(), parameter.value()));
         });
         return sb.toString();
+    }
+
+    public boolean isConfigurationAvaliable(ProductConfiguration configuration) { // TODO:
+        return configuration.parameters.contains(this.parameters);
+    }
+
+    public BigDecimal getTotalPrice() {
+        return parameters.stream().map(ConfigurationParameter::price).reduce(BigDecimal::add).get();
     }
 
     @Override

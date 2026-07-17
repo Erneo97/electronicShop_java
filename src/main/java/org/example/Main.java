@@ -15,9 +15,9 @@ public class Main {
 
         Cart cart = new Cart();
         Product testProduct = products.getFirst();
-        cart.addToCart(testProduct, testProduct.getVariants().stream().findFirst().get());
+        cart.addToCart(testProduct, testProduct.getConfiguration());
         Product testProduc2 = products.get(1);
-        cart.addToCart(testProduc2, testProduc2.getVariants().stream().findFirst().get());
+        cart.addToCart(testProduc2, testProduc2.getConfiguration());
 
         System.out.println(cart);
     }
