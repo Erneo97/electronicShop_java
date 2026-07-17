@@ -1,10 +1,7 @@
 package org.example.service.repository;
 
 import lombok.Getter;
-import org.example.model.product.Product;
-import org.example.model.product.ProductConfiguration;
-import org.example.model.product.TechnicalParameter;
-import org.example.model.product.ConfigurationParameter;
+import org.example.model.product.*;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -40,31 +37,31 @@ public class ProductRepository {
     }
 
     private void initProductsSmartphone(List<Product> products) {
-        Product smartphone1 = new Product("Smamsung galaxy s20");
-        Product smartphone2 = new Product("Apple 12 PRO");
-        smartphone1.addVariant(getTestSmartphoneVariant1());
-        smartphone1.addVariant(getTestSmartphoneVariant2());
-        smartphone2.addVariant(getTestSmartphoneVariant2());
+        Product smartphone1 = new Product("Smamsung galaxy s20", new BigDecimal(3500));
+        smartphone1.setType(TypeProduct.SMARTPHONE);
+        Product smartphone2 = new Product("Apple 12 PRO", new BigDecimal(5000));
+        smartphone2.setType(TypeProduct.SMARTPHONE);
+        smartphone1.adddConfiguration(getTestSmartphoneVariant1());
+        smartphone1.adddConfiguration(getTestSmartphoneVariant2());
+        smartphone2.adddConfiguration(getTestSmartphoneVariant2());
         products.add(smartphone1);
         products.add(smartphone2);
     }
 
     private ProductConfiguration getTestSmartphoneVariant1() {
         ProductConfiguration variant = new ProductConfiguration();
-        variant.setPrice(BigDecimal.valueOf(1234.43));
-        variant.addOrChangeParameterToVariant(new ConfigurationParameter(TechnicalParameter.COLOR, "Blue"));
-        variant.addOrChangeParameterToVariant(new ConfigurationParameter(TechnicalParameter.MEMORY, "120 GB"));
-        variant.addOrChangeParameterToVariant(new ConfigurationParameter(TechnicalParameter.RAM_SIZE, "16 GB"));
+        variant.addOrChangeParameterToVariant(new ConfigurationParameter(TechnicalParameter.COLOR, "Blue", BigDecimal.valueOf(0L)));
+        variant.addOrChangeParameterToVariant(new ConfigurationParameter(TechnicalParameter.MEMORY, "120 GB", BigDecimal.valueOf(1000L)));
+        variant.addOrChangeParameterToVariant(new ConfigurationParameter(TechnicalParameter.RAM_SIZE, "16 GB", BigDecimal.valueOf(200L)));
         return variant;
     }
 
     private ProductConfiguration getTestSmartphoneVariant2() {
         ProductConfiguration variant = new ProductConfiguration();
-        variant.setPrice(BigDecimal.valueOf(2500));
-        variant.addOrChangeParameterToVariant(new ConfigurationParameter(TechnicalParameter.COLOR, "Blue"));
-        variant.addOrChangeParameterToVariant(new ConfigurationParameter(TechnicalParameter.MEMORY, "120 GB"));
-        variant.addOrChangeParameterToVariant(new ConfigurationParameter(TechnicalParameter.PROCESSOR, "5 GHz"));
-        variant.addOrChangeParameterToVariant(new ConfigurationParameter(TechnicalParameter.RAM_SIZE, "16 GB"));
+        variant.addOrChangeParameterToVariant(new ConfigurationParameter(TechnicalParameter.COLOR, "Blue", BigDecimal.valueOf(0L)));
+        variant.addOrChangeParameterToVariant(new ConfigurationParameter(TechnicalParameter.MEMORY, "120 GB", BigDecimal.valueOf(100L)));
+        variant.addOrChangeParameterToVariant(new ConfigurationParameter(TechnicalParameter.PROCESSOR, "7 GHz", BigDecimal.valueOf(1500L)));
+        variant.addOrChangeParameterToVariant(new ConfigurationParameter(TechnicalParameter.RAM_SIZE, "16 GB", BigDecimal.valueOf(100L)));
         return variant;
     }
 
