@@ -19,10 +19,6 @@ public class Cart {
         totalPrice = totalPrice.add(configuration.getTotalPrice());
     }
 
-    public void removeFromCardByIndex(int index) {
-        products.remove(index);
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
