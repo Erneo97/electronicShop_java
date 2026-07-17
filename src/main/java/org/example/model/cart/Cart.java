@@ -1,5 +1,8 @@
 package org.example.model.cart;
 
+import org.example.model.order.OrderItem;
+import org.example.model.order.Orderlable;
+import org.example.model.order.ParameterOfOrder;
 import org.example.model.product.ProductConfiguration;
 
 import java.math.BigDecimal;
@@ -7,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class Cart {
+public class Cart implements Orderlable {
     private final List<CartItem> products = new ArrayList<>();
     private BigDecimal totalPrice = BigDecimal.ZERO;
 
@@ -34,5 +37,23 @@ public class Cart {
         });
         sb.append(String.format("Całkowita cena: %.2f\n", totalPrice));
         return sb.toString();
+    }
+
+    public void clearCart() {
+        products.clear();
+        totalPrice = BigDecimal.ZERO;
+    }
+
+    @Override
+    public List<OrderItem> getProductsToOrder() {
+        return products.stream()
+                .map(product -> new OrderItem(product.id(), getParameters(product)))
+                .toList();
+    }
+
+    private List<ParameterOfOrder> getParameters(CartItem product) {
+        return product.selectedVariant().getParameters().stream()
+                .map(parameter -> new ParameterOfOrder(parameter.getId(), parameter.getQuantity()))
+                .toList();
     }
 }
