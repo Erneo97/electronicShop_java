@@ -13,7 +13,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class TerminalInterface {
     private static final AtomicInteger nextId = new AtomicInteger(0);
     private final int userId =  nextId.getAndIncrement();
-    private final ProductManager productManager = new ProductManager();
+    private final ProductManager productManager;
+
+    public TerminalInterface(ProductManager productManager) {
+        this.productManager = productManager;
+    }
 
     public List<Product> getProducts() {
         return productManager.getProducts();

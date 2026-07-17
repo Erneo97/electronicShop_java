@@ -10,12 +10,12 @@ import org.example.service.repository.ProductRepository;
 import java.util.List;
 
 public class Main {
-    private ProductRepository productRepository = new ProductRepository();
-    private ProductManager productManager = new ProductManager(productRepository);
-    private OrderProcesor orderProcessor = new OrderProcesor(productRepository);
-
     public static void main(String[] args) {
-        TerminalInterface terminal = new TerminalInterface();
+        ProductRepository productRepository = new ProductRepository();
+        ProductManager productManager = new ProductManager(productRepository);
+        OrderProcesor orderProcessor = new OrderProcesor(productRepository);
+        TerminalInterface terminal = new TerminalInterface(productManager);
+
         List<Product> products = terminal.getProducts();
 
         products.forEach(System.out::println);
