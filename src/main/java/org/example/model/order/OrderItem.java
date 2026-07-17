@@ -1,4 +1,6 @@
 package org.example.model.order;
 
-public record OrderItem(int idProduct, int idVariant, int quantity) {
+import java.util.List;
+
+public record OrderItem(int idProduct, List<ParameterOfOrder> parameters) {
 }
