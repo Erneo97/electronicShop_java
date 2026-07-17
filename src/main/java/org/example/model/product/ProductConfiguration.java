@@ -20,6 +20,12 @@ public class ProductConfiguration {
         parameters.addAll(productConfiguration.parameters);
     }
 
+    public Optional<ConfigurationParameter> getParameterById(int id) {
+        return parameters.stream()
+                .filter(parameters -> parameters.getParameter().equals(id))
+                .findFirst();
+    }
+
     @Override
     public String toString() {
         StringBuffer sb = new StringBuffer();

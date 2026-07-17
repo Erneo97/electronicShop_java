@@ -6,6 +6,7 @@ import org.example.model.cart.CartItem;
 import org.example.model.cart.Shoppable;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Data
@@ -29,12 +30,16 @@ public class Product implements Shoppable {
         return new CartItem(id, name, description, 1, configuration);
     }
 
-    public boolean checkProductVariantExists(ProductConfiguration configuration) {
-        return configuration.isConfigurationAvaliable(configuration);
-    }
-
     @Override
     public String toString() {
         return String.format("%10s '%s' (%s) Opis: %s\n%s", type.name(), name, id, description, configuration);
+    }
+
+    public Optional<ConfigurationParameter> getConfigurationById(int id) {
+        return configuration.getParameterById(id);
+    }
+
+    public boolean checkProductVariantExists(ProductConfiguration configuration) {
+        return configuration.isConfigurationAvaliable(configuration);
     }
 }

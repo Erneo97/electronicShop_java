@@ -2,10 +2,10 @@ package org.example.customer;
 
 import org.example.model.cart.Cart;
 import org.example.model.order.Order;
+import org.example.service.OrderProcesor;
 import org.example.service.manager.ProductManager;
 import org.example.model.product.Product;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -14,9 +14,11 @@ public class TerminalInterface {
     private static final AtomicInteger nextId = new AtomicInteger(0);
     private final int userId =  nextId.getAndIncrement();
     private final ProductManager productManager;
+    private final OrderProcesor orderProcesor;
 
-    public TerminalInterface(ProductManager productManager) {
+    public TerminalInterface(ProductManager productManager, OrderProcesor orderProcesor) {
         this.productManager = productManager;
+        this.orderProcesor = orderProcesor;
     }
 
     public List<Product> getProducts() {

@@ -2,6 +2,7 @@ package org.example.service;
 
 import org.example.model.order.Order;
 import org.example.model.order.OrderItem;
+import org.example.model.product.ConfigurationParameter;
 import org.example.model.product.Product;
 import org.example.service.repository.ProductRepository;
 
@@ -20,7 +21,7 @@ public class OrderProcesor {
         this.productRepository = productRepository;
     }
 
-    private ExecutorService executorService = Executors.newSingleThreadExecutor();
+    private final ExecutorService executorService = Executors.newSingleThreadExecutor();
 
     public Future<Boolean> makeOrder(Order order) {
         return executorService.submit(() -> {
@@ -33,7 +34,20 @@ public class OrderProcesor {
     }
 
     private boolean validateOrder(Order order) {
-
-        return false;
+        return order.products().stream()
+                .allMatch(orderProduct ->
+                        productRepository.getProductById(orderProduct.idProduct())
+                                .map(product -> validateAvalableConfigurationProduct(orderProduct, product))
+                                .orElse(false)
+                );
     }
+
+    private boolean validateAvalableConfigurationProduct(OrderItem orderedProduct, Product product) {
+        return orderedProduct.parameters().stream()
+                .allMatch(parameter -> {
+                    Optional<ConfigurationParameter> optConfiguration = product.getConfigurationById(parameter.idParameter());
+                    return optConfiguration.isPresent() && optConfiguration.get().getQuantity() >= parameter.quantity();
+                });
+    }
+
 }
