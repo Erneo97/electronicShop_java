@@ -7,7 +7,11 @@ import org.example.service.repository.ProductRepository;
 import java.util.List;
 
 public class ProductManager {
-    ProductRepository repository = new ProductRepository();
+    ProductRepository repository;
+
+    public ProductManager(ProductRepository productRepository) {
+        this.repository = productRepository;
+    }
 
     public List<Product> getProducts() {
         return repository.getAllProducts();
