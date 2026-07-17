@@ -12,7 +12,7 @@ public class ProductConfiguration {
     private final List<ConfigurationParameter> parameters = new ArrayList<>();
 
     public void addOrChangeParameterToVariant(ConfigurationParameter items) {
-        parameters.stream().filter(parameters -> parameters.parameter().equals(items.parameter())).findFirst().ifPresent(parameters::remove);
+        parameters.stream().filter(parameters -> parameters.getParameter().equals(items.getParameter())).findFirst().ifPresent(parameters::remove);
         parameters.add(items);
     }
 
@@ -24,7 +24,7 @@ public class ProductConfiguration {
     public String toString() {
         StringBuffer sb = new StringBuffer();
         parameters.forEach(parameter -> {
-            sb.append(String.format("%10s: %5s; ", parameter.parameter().getParameter(), parameter.value()));
+            sb.append(String.format("%10s: %5s; ", parameter.getParameter().getParameter(), parameter.getValue()));
         });
         return sb.toString();
     }
@@ -34,7 +34,7 @@ public class ProductConfiguration {
     }
 
     public BigDecimal getTotalPrice() {
-        return parameters.stream().map(ConfigurationParameter::price).reduce(BigDecimal::add).get();
+        return parameters.stream().map(ConfigurationParameter::getPrice).reduce(BigDecimal::add).get();
     }
 
     @Override
