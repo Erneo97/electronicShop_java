@@ -19,7 +19,7 @@ public class PolishInvoice implements Invoice {
         invoice.append("              FAKTURA VAT\n");
         invoice.append("=========================================\n\n");
 
-        invoice.append("Nr zamówienia: ").append(order.hashCode()).append("\n");
+        invoice.append("Nr zamówienia: ").append(Math.abs(order.hashCode())).append("\n");
         invoice.append("Data wystawienia: ")
                 .append(order.createdAt().format(DATE_FORMATTER))
                 .append("\n");

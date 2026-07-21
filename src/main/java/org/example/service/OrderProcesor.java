@@ -21,13 +21,13 @@ public class OrderProcesor {
     }
 
 
-    public Future<Boolean> makeOrder(Order order) {
+    public Future<Order> makeOrder(Order order) {
         return executorService.submit(() -> {
-            boolean validateResult = validateOrder(order);
-            if (validateResult) {
-                orders.add(order);
+            if (!validateOrder(order)) {
+                // TODO: wyjątek nie można złożyć zamówienia
             }
-            return validateResult;
+            orders.add(order);
+            return order;
         });
     }
 
