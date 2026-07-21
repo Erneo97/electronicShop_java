@@ -56,13 +56,12 @@ public class ProductConfiguration {
         return list;
     }
 
-    public boolean isConfigurationAvailable(ProductConfiguration configuration) { // TODO:
+    public boolean isConfigurationAvailable(ProductConfiguration configuration) {
         return this.parameters.stream()
                 .allMatch(parameter ->
                         configuration.parameters.stream()
-                                .anyMatch(item -> item.getId() == parameter.getId())
+                                .anyMatch(item -> item.getId() == parameter.getId() && item.getQuantity() >= parameter.getQuantity())
                 );
-
     }
 
     public BigDecimal getTotalPrice() {
