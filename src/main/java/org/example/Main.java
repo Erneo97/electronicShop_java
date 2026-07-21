@@ -32,6 +32,7 @@ public class Main {
                     Dozwolone komendy w sklepie:
                     1 - Wyświetl listę produktów
                     2 - Wyświetl koszyk
+                    3 - Dodaj produkt do koszyka
                     15 - Zamknij sklep
                     Twój wybór:""");
 
@@ -53,8 +54,13 @@ public class Main {
 
     private static void performSelectedOperation(TerminalInterfaceEnum operation, TerminalInterface terminal, Cart cart) {
         switch (operation) {
-            case LIST_PRODUCT -> terminal.getProducts().forEach(System.out::println);
+            case LIST_PRODUCT -> terminal.displayProducts();
             case DISPLAY_CART -> System.out.println(cart);
+            case ADD_CART -> {
+                System.out.println("Wybierz produkt z listy:");
+                terminal.displayProducts();
+                cart.addToCart( terminal.selectProduct());
+            }
             case EXIT -> System.out.println("Dziękujemy za zakupy zapraszamy ponownnie");
         }
     }

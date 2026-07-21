@@ -35,18 +35,23 @@ public class Product implements Shoppable {
         this.description = product.description;
     }
 
-    public void addConfiguration(ProductConfiguration configuration) {
-        this.configuration.addAllParameters(configuration);
-    }
-
     @Override
-    public CartItem addToCart(ProductConfiguration configuration) {
+    public CartItem addToCart() {
         return new CartItem(id, name, description, 1, configuration);
     }
 
     @Override
     public String toString() {
         return String.format("%5s) '%s' (%10s) Opis: %s\n%s", id, name, type.name(), description, configuration);
+    }
+
+    @Override
+    public BigDecimal getTotalPrice() {
+        return price.add(configuration.getTotalPrice());
+    }
+
+    public void addConfiguration(ProductConfiguration configuration) {
+        this.configuration.addAllParameters(configuration);
     }
 
     public Optional<ConfigurationParameter> getConfigurationById(int id) {

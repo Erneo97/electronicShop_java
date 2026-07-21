@@ -9,6 +9,7 @@ import java.util.Arrays;
 public enum TerminalInterfaceEnum {
     LIST_PRODUCT(1),
     DISPLAY_CART(2),
+    ADD_CART(3),
     EXIT(15),
     NOT_RECOGNIZE_OPERATION(-1);
 

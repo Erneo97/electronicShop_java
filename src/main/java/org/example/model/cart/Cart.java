@@ -5,7 +5,6 @@ import lombok.NonNull;
 import org.example.model.order.OrderItem;
 import org.example.model.order.Orderlable;
 import org.example.model.order.ParameterOfOrder;
-import org.example.model.product.ProductConfiguration;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -17,12 +16,9 @@ public class Cart implements Orderlable {
     @Getter
     private BigDecimal totalPrice = BigDecimal.ZERO;
 
-    public void addToCart(@NonNull Shoppable product, ProductConfiguration configuration) {
-        if (!product.checkProductVariantExists(configuration)) {
-            return; // TODO: throw un check
-        }
-        products.add(product.addToCart(configuration));
-        totalPrice = totalPrice.add(configuration.getTotalPrice()).add(product.getPrice());
+    public void addToCart(@NonNull Shoppable product) {
+        products.add(product.addToCart());
+        totalPrice = totalPrice.add(product.getTotalPrice());
     }
 
     @Override
