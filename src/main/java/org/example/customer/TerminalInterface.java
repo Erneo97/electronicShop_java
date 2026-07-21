@@ -35,10 +35,10 @@ public class TerminalInterface {
     }
 
     public Future<Boolean> makeOrder(Cart cart) {
+        // TODO: wyjątek jaka operacja nie udana
         LocalDateTime createdAt = LocalDateTime.now();
-        Order newOrder = new Order(userId, cart.getProductsToOrder(), createdAt);
+        Order newOrder = new Order(userId, cart.getProductsToOrder(), createdAt, cart.getTotalPrice());
         cart.clearCart();
         return orderProcesor.makeOrder(newOrder);
-        // TODO: wysłanie do procesowania
     }
 }

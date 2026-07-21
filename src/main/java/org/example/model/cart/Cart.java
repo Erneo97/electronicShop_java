@@ -1,5 +1,6 @@
 package org.example.model.cart;
 
+import lombok.Getter;
 import lombok.NonNull;
 import org.example.model.order.OrderItem;
 import org.example.model.order.Orderlable;
@@ -13,6 +14,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Cart implements Orderlable {
     private final List<CartItem> products = new ArrayList<>();
+    @Getter
     private BigDecimal totalPrice = BigDecimal.ZERO;
 
     public void addToCart(@NonNull Shoppable product, ProductConfiguration configuration) {
@@ -50,7 +52,6 @@ public class Cart implements Orderlable {
         products.clear();
         totalPrice = BigDecimal.ZERO;
     }
-
 
     private List<ParameterOfOrder> getParameters(CartItem product) {
         return product.selectedVariant().getParameters().stream()
