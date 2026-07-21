@@ -35,26 +35,37 @@ public class Main {
         TerminalInterfaceEnum operation = TerminalInterfaceEnum.LIST_PRODUCT;
 
         while (operation != TerminalInterfaceEnum.EXIT) {
-            System.out.print("""
-                    Dozwolone komendy w sklepie:
-                    1 - Wyświetl listę produktów
-                    2 - Wyświetl koszyk
-                    3 - Dodaj produkt do koszyka
-                    4 - Złóż zamówienie
-                    5 - Wyświetl fakturę za ostatie zamówienie
-                    15 - Zamknij sklep
-                    Twój wybór:""");
-
+            displayMenu();
             operation = TerminalInterfaceEnum.from(scanner.nextInt());
             performSelectedOperation(operation, terminal, cart);
         }
+    }
+
+    private static void displayMenu() {
+        System.out.printf("""
+                    Dozwolone komendy w sklepie:
+                    %d - Wyświetl listę produktów
+                    %d - Wyświetl koszyk
+                    %d - Dodaj produkt do koszyka
+                    %d - Usu produkt z koszyka
+                    %d - Złóż zamówienie
+                    %d - Wyświetl fakturę za ostatie zamówienie
+                    %d - Zamknij sklep
+                    Twój wybór:""",
+                TerminalInterfaceEnum.LIST_PRODUCT.getOperation(),
+                TerminalInterfaceEnum.DISPLAY_CART.getOperation(),
+                TerminalInterfaceEnum.ADD_TO_CART.getOperation(),
+                TerminalInterfaceEnum.REMOVE_FROM_CART.getOperation(),
+                TerminalInterfaceEnum.ORDER_CART.getOperation(),
+                TerminalInterfaceEnum.INVOICE_LAST_ORDER.getOperation(),
+                TerminalInterfaceEnum.EXIT.getOperation());
     }
 
     private static void performSelectedOperation(TerminalInterfaceEnum operation, TerminalInterface terminal, Cart cart) {
         switch (operation) {
             case LIST_PRODUCT -> terminal.displayProducts();
             case DISPLAY_CART -> System.out.println(cart);
-            case ADD_CART -> handleADDCart(terminal, cart);
+            case ADD_TO_CART -> handleADDCart(terminal, cart);
             case ORDER_CART -> handleOrderCart(terminal, cart);
             case INVOICE_LAST_ORDER -> handleInvoiceLastOrder(terminal);
             case EXIT -> System.out.println("Dziękujemy za zakupy zapraszamy ponownnie");

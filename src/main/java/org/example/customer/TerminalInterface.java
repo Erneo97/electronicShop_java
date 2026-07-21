@@ -55,6 +55,7 @@ public class TerminalInterface {
 
         List<Product>  selectedProducts = new ArrayList<>();
         for (int i = 0; i < quantituSelectedProduct; i++) {
+            System.out.println("Konfiguracja dla sztuki nr. " + (i+1));
             selectedProducts.add(selectProductConfiguration(scanner, products.get(productId)));
         }
         return selectedProducts;
