@@ -43,12 +43,12 @@ public class ProductConfiguration {
     private String getParametersCategory(TechnicalParameter category) {
         StringBuffer sb = new StringBuffer();
         parameters.stream().filter(parameter -> parameter.getParameter().equals(category))
-                .forEach(findedParameter ->
-                        sb.append(findedParameter.getValue()).append(", "));
+                .forEach(foundParameter ->
+                        sb.append(foundParameter.getValue()).append(", "));
         return sb.toString();
     }
 
-    public boolean isConfigurationAvaliable(ProductConfiguration configuration) { // TODO:
+    public boolean isConfigurationAvailable(ProductConfiguration configuration) { // TODO:
         return this.parameters.stream()
                 .allMatch(parameter ->
                         configuration.parameters.stream()
