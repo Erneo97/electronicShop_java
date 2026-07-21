@@ -48,8 +48,8 @@ public class ProductRepository {
         smartphone1.setType(TypeProduct.SMARTPHONE);
         Product smartphone2 = new Product("Apple 12 PRO", new BigDecimal(5000));
         smartphone2.setType(TypeProduct.SMARTPHONE);
-        smartphone1.adddConfiguration(getTestSmartphoneVariant1());
-        smartphone2.adddConfiguration(getTestSmartphoneVariant2());
+        smartphone1.addConfiguration(getTestSmartphoneVariant1());
+        smartphone2.addConfiguration(getTestSmartphoneVariant2());
         products.add(smartphone1);
         products.add(smartphone2);
     }

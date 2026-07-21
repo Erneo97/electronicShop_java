@@ -10,10 +10,11 @@ import lombok.Setter;
 @Setter
 public class ProductConfiguration {
     private final List<ConfigurationParameter> parameters = new ArrayList<>();
-    private Set<TechnicalParameter> categories = new HashSet<>();
+    private final Set<TechnicalParameter> categories = new HashSet<>();
 
     public void addParameterToConfiguration(ConfigurationParameter items) {
         parameters.add(items);
+        categories.add(items.getParameter());
     }
 
     public void addAllParameters(ProductConfiguration productConfiguration) {
@@ -48,6 +49,14 @@ public class ProductConfiguration {
         return sb.toString();
     }
 
+    public List<ConfigurationParameter> getParametersByCategory(TechnicalParameter category) {
+        List<ConfigurationParameter> list = new ArrayList<>();
+        parameters.stream().filter(parameter -> parameter.getParameter().equals(category))
+                .forEach(foundParameter ->
+                        list.add(foundParameter));
+        return list;
+    }
+
     public boolean isConfigurationAvailable(ProductConfiguration configuration) { // TODO:
         return this.parameters.stream()
                 .allMatch(parameter ->
@@ -59,6 +68,11 @@ public class ProductConfiguration {
 
     public BigDecimal getTotalPrice() {
         return parameters.stream().map(ConfigurationParameter::getPrice).reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    public void clearConfiguration() {
+        parameters.clear();
+        categories.clear();
     }
 
     @Override

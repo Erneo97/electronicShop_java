@@ -12,7 +12,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Data
 public class Product implements Shoppable {
     private static AtomicInteger counterID = new AtomicInteger(0);
-    private final int id = counterID.getAndIncrement();
+    private final int id;
     @NonNull
     protected String name, description = "'brak opisu'";
     protected TypeProduct type = TypeProduct.ELECTRONICS;
@@ -21,7 +21,21 @@ public class Product implements Shoppable {
 
     private final ProductConfiguration configuration = new ProductConfiguration();
 
-    public void adddConfiguration(ProductConfiguration configuration) {
+    public Product(String name, BigDecimal price) {
+        this.id = counterID.getAndIncrement();
+        this.name = name;
+        this.price = price;
+    }
+
+    public Product(Product product) {
+        this.id = product.id;
+        this.name = product.name;
+        this.price = product.price;
+        this.type = product.type;
+        this.description = product.description;
+    }
+
+    public void addConfiguration(ProductConfiguration configuration) {
         this.configuration.addAllParameters(configuration);
     }
 
@@ -32,7 +46,7 @@ public class Product implements Shoppable {
 
     @Override
     public String toString() {
-        return String.format("%10s '%s' (%s) Opis: %s\n%s", type.name(), name, id, description, configuration);
+        return String.format("%5s) '%s' (%10s) Opis: %s\n%s", id, name, type.name(), description, configuration);
     }
 
     public Optional<ConfigurationParameter> getConfigurationById(int id) {
@@ -40,6 +54,13 @@ public class Product implements Shoppable {
     }
 
     public boolean checkProductVariantExists(ProductConfiguration configuration) {
-        return this.configuration.isConfigurationAvaliable(configuration);
+        return this.configuration.isConfigurationAvailable(configuration);
+    }
+
+    public Product copyWithConfiguration(ProductConfiguration configuration) {
+        Product copy = new Product(this);
+        copy.configuration.clearConfiguration();
+        copy.configuration.addAllParameters(configuration);
+        return copy;
     }
 }
