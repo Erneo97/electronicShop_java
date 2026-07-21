@@ -6,6 +6,7 @@ import org.example.model.cart.Cart;
 import org.example.model.invoice.Invoice;
 import org.example.model.invoice.PolishInvoice;
 import org.example.model.order.Order;
+import org.example.model.order.OrderCannotFulfiledExeption;
 import org.example.service.OrderProcesor;
 import org.example.service.manager.ProductManager;
 import org.example.service.repository.ProductRepository;
@@ -42,15 +43,15 @@ public class Main {
 
     private static void displayMenu() {
         System.out.printf("""
-                    Dozwolone komendy w sklepie:
-                    %d - Wyświetl listę produktów
-                    %d - Wyświetl koszyk
-                    %d - Dodaj produkt do koszyka
-                    %d - Usu produkt z koszyka
-                    %d - Złóż zamówienie
-                    %d - Wyświetl fakturę za ostatie zamówienie
-                    %d - Zamknij sklep
-                    Twój wybór:""",
+                        Dozwolone komendy w sklepie:
+                        %d - Wyświetl listę produktów
+                        %d - Wyświetl koszyk
+                        %d - Dodaj produkt do koszyka
+                        %d - Usuń produkt z koszyka
+                        %d - Złóż zamówienie
+                        %d - Wyświetl fakturę za ostatie zamówienie
+                        %d - Zamknij sklep
+                        Twój wybór:""",
                 TerminalInterfaceEnum.LIST_PRODUCT.getOperation(),
                 TerminalInterfaceEnum.DISPLAY_CART.getOperation(),
                 TerminalInterfaceEnum.ADD_TO_CART.getOperation(),
@@ -88,10 +89,12 @@ public class Main {
 
     private static void handleOrderCart(UserCommandLineInterface terminal, Cart cart) {
         System.out.println(cart);
-        Future<Order> orderResponse = terminal.makeOrder(cart);
         try {
+            Future<Order> orderResponse = terminal.makeOrder(cart);
             terminal.setLastOrder(orderResponse.get(500, TimeUnit.SECONDS));
             System.out.println("Złożone zamówienie: " + terminal.getLastOrder());
+        } catch (OrderCannotFulfiledExeption e) {
+            System.err.println(e.getMessage());
         } catch (InterruptedException | TimeoutException | ExecutionException e) {
             throw new RuntimeException(e);
         }
