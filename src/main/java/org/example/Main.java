@@ -3,16 +3,12 @@ package org.example;
 import org.example.customer.TerminalInterface;
 import org.example.customer.TerminalInterfaceEnum;
 import org.example.model.cart.Cart;
-import org.example.model.product.Product;
 import org.example.service.OrderProcesor;
 import org.example.service.manager.ProductManager;
 import org.example.service.repository.ProductRepository;
 
-import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 public class Main {
@@ -40,12 +36,7 @@ public class Main {
                     Twój wybór:""");
 
             operation = TerminalInterfaceEnum.from(scanner.nextInt());
-
-            switch (operation) {
-                case LIST_PRODUCT -> terminal.getProducts().forEach(System.out::println);
-                case DISPLAY_CART -> System.out.println(cart);
-                case EXIT -> System.out.println("Dziękujemy za zakupy zapraszamy ponownnie");
-            }
+            performSelectedOperation(operation, terminal, cart);
         }
 
 //        Product testProduct = products.getFirst();
@@ -59,4 +50,13 @@ public class Main {
 //
 //        System.out.println(cart);
     }
+
+    private static void performSelectedOperation(TerminalInterfaceEnum operation, TerminalInterface terminal, Cart cart) {
+        switch (operation) {
+            case LIST_PRODUCT -> terminal.getProducts().forEach(System.out::println);
+            case DISPLAY_CART -> System.out.println(cart);
+            case EXIT -> System.out.println("Dziękujemy za zakupy zapraszamy ponownnie");
+        }
+    }
+
 }
