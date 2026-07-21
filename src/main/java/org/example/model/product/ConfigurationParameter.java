@@ -18,12 +18,13 @@ public final class ConfigurationParameter {
     public ConfigurationParameter(
             TechnicalParameter parameter,
             String value,
-            BigDecimal price
+            BigDecimal price,
+            int quantity
     ) {
         this.parameter = parameter;
         this.value = value;
         this.price = price;
         this.id = idCounter.getAndIncrement();
-        this.quantity = 3;
+        this.quantity = quantity;
     }
 }

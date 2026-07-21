@@ -43,17 +43,16 @@ public class ProductConfiguration {
 
     private String getParametersCategory(TechnicalParameter category) {
         StringBuffer sb = new StringBuffer();
-        parameters.stream().filter(parameter -> parameter.getParameter().equals(category))
-                .forEach(foundParameter ->
-                        sb.append(foundParameter.getValue()).append(", "));
+        getParametersByCategory(category)
+                .forEach(foundParameter -> sb.append(foundParameter.getValue()).append(", "));
         return sb.toString();
     }
 
     public List<ConfigurationParameter> getParametersByCategory(TechnicalParameter category) {
         List<ConfigurationParameter> list = new ArrayList<>();
-        parameters.stream().filter(parameter -> parameter.getParameter().equals(category))
-                .forEach(foundParameter ->
-                        list.add(foundParameter));
+        parameters.stream()
+                .filter(parameter -> parameter.getParameter().equals(category) && parameter.getQuantity() > 0)
+                .forEach(list::add);
         return list;
     }
 
