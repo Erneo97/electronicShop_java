@@ -10,13 +10,17 @@ import lombok.Setter;
 @Setter
 public class ProductConfiguration {
     private final List<ConfigurationParameter> parameters = new ArrayList<>();
+    private Set<TechnicalParameter> categories = new HashSet<>();
 
     public void addParameterToConfiguration(ConfigurationParameter items) {
         parameters.add(items);
     }
 
     public void addAllParameters(ProductConfiguration productConfiguration) {
-        parameters.addAll(productConfiguration.parameters);
+        productConfiguration.getParameters().forEach(item -> {
+            parameters.add(item);
+            categories.add(item.getParameter());
+        });
     }
 
     public Optional<ConfigurationParameter> getParameterById(int id) {
@@ -28,10 +32,19 @@ public class ProductConfiguration {
     @Override
     public String toString() {
         StringBuffer sb = new StringBuffer();
-        sb.append(parameters.size() + " parametrów.");
-        parameters.forEach(parameter ->
-                sb.append(String.format("%10s: %5s; ", parameter.getParameter().getParameter(), parameter.getValue()))
-        );
+        categories.forEach(category -> {
+            sb.append(String.format("%s : ", category));
+            sb.append(getParametersCategory(category));
+            sb.append("\n");
+        });
+        return sb.toString();
+    }
+
+    private String getParametersCategory(TechnicalParameter category) {
+        StringBuffer sb = new StringBuffer();
+        parameters.stream().filter(parameter -> parameter.getParameter().equals(category))
+                .forEach(findedParameter ->
+                        sb.append(findedParameter.getValue()).append(", "));
         return sb.toString();
     }
 
