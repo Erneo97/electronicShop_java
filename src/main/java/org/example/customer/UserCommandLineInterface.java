@@ -110,9 +110,4 @@ public class UserCommandLineInterface {
         AtomicInteger counter = new AtomicInteger(1);
         parameters.forEach(parametr -> System.out.printf("\t%d) %s\n", counter.getAndIncrement(), parametr.getValue()));
     }
-
-    private Optional<Product> getProductById(int id) {
-        return getProducts().stream().filter(product -> product.getId() == id).findFirst();
-    }
-
 }

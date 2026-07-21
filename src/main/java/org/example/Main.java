@@ -65,10 +65,19 @@ public class Main {
             case LIST_PRODUCT -> terminal.displayProducts();
             case DISPLAY_CART -> System.out.println(cart);
             case ADD_TO_CART -> handleADDCart(terminal, cart);
+            case REMOVE_FROM_CART -> handleRemoveCart(cart);
             case ORDER_CART -> handleOrderCart(terminal, cart);
             case INVOICE_LAST_ORDER -> handleInvoiceLastOrder(terminal);
             case EXIT -> System.out.println("Dziękujemy za zakupy zapraszamy ponownnie");
         }
+    }
+
+    private static void handleRemoveCart(Cart cart) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println(cart);
+        System.out.print("Wybierz produkt z listy do usuniecia:");
+        int index = scanner.nextInt();
+        cart.removeFromCartByIndex(index);
     }
 
     private static void handleADDCart(UserCommandLineInterface terminal, Cart cart) {
