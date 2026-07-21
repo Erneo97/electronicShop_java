@@ -1,6 +1,9 @@
 package org.example.customer;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.example.model.cart.Cart;
+import org.example.model.invoice.Invoice;
 import org.example.model.order.Order;
 import org.example.model.product.ConfigurationParameter;
 import org.example.model.product.ProductConfiguration;
@@ -19,10 +22,15 @@ public class TerminalInterface {
     private final int userId = nextId.getAndIncrement();
     private final ProductManager productManager;
     private final OrderProcesor orderProcesor;
+    private final Invoice invoice;
+    @Getter
+    @Setter
+    private Order lastOrder;
 
-    public TerminalInterface(ProductManager productManager, OrderProcesor orderProcesor) {
+    public TerminalInterface(ProductManager productManager, OrderProcesor orderProcesor, Invoice invoice) {
         this.productManager = productManager;
         this.orderProcesor = orderProcesor;
+        this.invoice = invoice;
     }
 
     public List<Product> getProducts() {
@@ -33,7 +41,7 @@ public class TerminalInterface {
         getProducts().forEach(System.out::println);
     }
 
-    public Product selectProduct() {
+    public List<Product> selectProduct() {
         Scanner scanner = new Scanner(System.in);
         List<Product> products = getProducts();
         int productId = -1;
@@ -42,8 +50,14 @@ public class TerminalInterface {
             System.out.print("Podaj nr produktu któy chcesz personalizwoać: ");
             productId = scanner.nextInt();
         }
-        System.out.println("Wybrany produkt: " + products.get(productId));
-        return selectProductConfiguration(scanner, products.get(productId));
+        System.out.printf("Wybrany produkt: %s\nPodaj ilość wybranego produktu", products.get(productId));
+        int quantituSelectedProduct = scanner.nextInt();
+
+        List<Product>  selectedProducts = new ArrayList<>();
+        for (int i = 0; i < quantituSelectedProduct; i++) {
+            selectedProducts.add(selectProductConfiguration(scanner, products.get(productId)));
+        }
+        return selectedProducts;
     }
 
     public void addProduct(Product product) {
@@ -54,12 +68,16 @@ public class TerminalInterface {
         productManager.removeProduct(product);
     }
 
-    public Future<Boolean> makeOrder(Cart cart) {
-        // TODO: wyjątek jaka operacja nie udana
+    public Future<Order> makeOrder(Cart cart) {
         LocalDateTime createdAt = LocalDateTime.now();
         Order newOrder = new Order(userId, cart.getProductsToOrder(), createdAt, cart.getTotalPrice());
         cart.clearCart();
+        // todo: try catch
         return orderProcesor.makeOrder(newOrder);
+    }
+
+    public String generateInvoicByOrder(Order order) {
+        return invoice.generateOrderInvoice(order);
     }
 
     private Product selectProductConfiguration(Scanner scanner, Product product) {
@@ -76,6 +94,7 @@ public class TerminalInterface {
                         System.out.print("Wybierz konfigurację ");
                         selectedIndex = scanner.nextInt();
                     }
+                    parameters.get(selectedIndex - 1).setQuantity(1);
                     System.out.println("Wybrano: " + parameters.get(selectedIndex - 1).getValue());
                     newConfiguration.addParameterToConfiguration(parameters.get(selectedIndex - 1));
                 }
