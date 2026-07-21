@@ -21,6 +21,10 @@ public class Cart implements Orderlable {
         totalPrice = totalPrice.add(product.getTotalPrice());
     }
 
+    public void removeFromCartByIndex(int index) {
+        products.remove(index);
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

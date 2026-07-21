@@ -17,7 +17,7 @@ import java.util.*;
 import java.util.concurrent.Future;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class TerminalInterface {
+public class UserCommandLineInterface {
     private static final AtomicInteger nextId = new AtomicInteger(0);
     private final int userId = nextId.getAndIncrement();
     private final ProductManager productManager;
@@ -27,7 +27,7 @@ public class TerminalInterface {
     @Setter
     private Order lastOrder;
 
-    public TerminalInterface(ProductManager productManager, OrderProcesor orderProcesor, Invoice invoice) {
+    public UserCommandLineInterface(ProductManager productManager, OrderProcesor orderProcesor, Invoice invoice) {
         this.productManager = productManager;
         this.orderProcesor = orderProcesor;
         this.invoice = invoice;

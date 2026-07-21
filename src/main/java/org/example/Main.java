@@ -1,6 +1,6 @@
 package org.example;
 
-import org.example.customer.TerminalInterface;
+import org.example.customer.UserCommandLineInterface;
 import org.example.customer.TerminalInterfaceEnum;
 import org.example.model.cart.Cart;
 import org.example.model.invoice.Invoice;
@@ -23,7 +23,7 @@ public class Main {
     private static final Invoice polishInvoice = new PolishInvoice();
 
     public static void main(String[] args) throws ExecutionException, InterruptedException, TimeoutException {
-        TerminalInterface terminal = new TerminalInterface(productManager, orderProcessor, polishInvoice);
+        UserCommandLineInterface terminal = new UserCommandLineInterface(productManager, orderProcessor, polishInvoice);
         Scanner scanner = new Scanner(System.in);
         Cart cart = new Cart();
 
@@ -60,7 +60,7 @@ public class Main {
                 TerminalInterfaceEnum.EXIT.getOperation());
     }
 
-    private static void performSelectedOperation(TerminalInterfaceEnum operation, TerminalInterface terminal, Cart cart) {
+    private static void performSelectedOperation(TerminalInterfaceEnum operation, UserCommandLineInterface terminal, Cart cart) {
         switch (operation) {
             case LIST_PRODUCT -> terminal.displayProducts();
             case DISPLAY_CART -> System.out.println(cart);
@@ -71,13 +71,13 @@ public class Main {
         }
     }
 
-    private static void handleADDCart(TerminalInterface terminal, Cart cart) {
+    private static void handleADDCart(UserCommandLineInterface terminal, Cart cart) {
         System.out.println("Wybierz produkt z listy:");
         terminal.displayProducts();
         terminal.selectProduct().forEach(cart::addToCart);
     }
 
-    private static void handleOrderCart(TerminalInterface terminal, Cart cart) {
+    private static void handleOrderCart(UserCommandLineInterface terminal, Cart cart) {
         System.out.println(cart);
         Future<Order> orderResponse = terminal.makeOrder(cart);
         try {
@@ -88,7 +88,7 @@ public class Main {
         }
     }
 
-    private static void handleInvoiceLastOrder(TerminalInterface terminal) {
+    private static void handleInvoiceLastOrder(UserCommandLineInterface terminal) {
         if (terminal.getLastOrder() != null) {
             System.out.println("\tWygenerowana faktura:\n" + terminal.generateInvoicByOrder(terminal.getLastOrder()));
         } else {
