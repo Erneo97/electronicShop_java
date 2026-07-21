@@ -7,40 +7,46 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 @Getter
 public class ProductRepository {
     private final List<Product> products = new ArrayList<>();
-    Lock lock = new ReentrantLock();
+    private final ReadWriteLock lock = new ReentrantReadWriteLock();
 
     public ProductRepository() {
         initProductsSmartphone(products);
     }
 
     public List<Product> getAllProducts() {
-        return products;
+        lock.readLock().lock();
+        List<Product> allProducts = List.copyOf(products);
+        lock.readLock().unlock();
+        return allProducts;
     }
 
     public void addNewProduct(Product product) {
-        // TODO: throw jeżeli nie unikalny
-        lock.lock();
+        lock.writeLock().lock();
         products.add(product);
-        lock.unlock();
+        lock.writeLock().unlock();
     }
 
     public void removeProduct(Product product) {
-        // TODO: throw jeżeli nie istnieje
-        lock.lock();
+        lock.writeLock().lock();
         products.remove(product);
-        lock.unlock();
+        lock.writeLock().unlock();
+
     }
 
     public Optional<Product> getProductById(int id) {
-        return products.stream()
+        lock.readLock().lock();
+        Optional<Product> optFoundProduct = products.stream()
                 .filter(product -> product.getId() == id)
                 .findFirst();
+        lock.readLock().unlock();
+        return optFoundProduct;
+
     }
 
     private void initProductsSmartphone(List<Product> products) {
@@ -72,5 +78,4 @@ public class ProductRepository {
         variant.addParameterToConfiguration(new ConfigurationParameter(TechnicalParameter.RAM_SIZE, "16 GB", BigDecimal.valueOf(100L), 3));
         return variant;
     }
-
 }
