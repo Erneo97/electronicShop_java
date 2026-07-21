@@ -21,7 +21,7 @@ public class ProductConfiguration {
 
     public Optional<ConfigurationParameter> getParameterById(int id) {
         return parameters.stream()
-                .filter(parameters -> parameters.getParameter().equals(id))
+                .filter(parameter -> parameter.getId() == id)
                 .findFirst();
     }
 

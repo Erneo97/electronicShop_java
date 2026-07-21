@@ -37,17 +37,19 @@ public class OrderProcesor {
         return order.products().stream()
                 .allMatch(orderProduct ->
                         productRepository.getProductById(orderProduct.idProduct())
-                                .map(product -> validateAvalableConfigurationProduct(orderProduct, product))
+                                .map(product -> validateAvailableConfigurationProduct(orderProduct, product))
                                 .orElse(false)
                 );
     }
 
-    private boolean validateAvalableConfigurationProduct(OrderItem orderedProduct, Product product) {
+    private boolean validateAvailableConfigurationProduct(OrderItem orderedProduct, Product product) {
         return orderedProduct.parameters().stream()
-                .allMatch(parameter -> {
-                    Optional<ConfigurationParameter> optConfiguration = product.getConfigurationById(parameter.idParameter());
-                    return optConfiguration.isPresent() && optConfiguration.get().getQuantity() >= parameter.quantity();
-                });
+                .allMatch(parameter ->
+                        product.getConfigurationById(parameter.idParameter())
+                                .map(
+                                        configuration -> configuration.getQuantity() >= parameter.quantity()
+                                )
+                                .orElse(false)
+                );
     }
-
 }

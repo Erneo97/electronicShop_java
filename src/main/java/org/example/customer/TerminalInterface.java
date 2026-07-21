@@ -8,6 +8,7 @@ import org.example.model.product.Product;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.concurrent.Future;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class TerminalInterface {
@@ -33,9 +34,11 @@ public class TerminalInterface {
         productManager.removeProduct(product);
     }
 
-    public void makeOrder(Cart cart) {
+    public Future<Boolean> makeOrder(Cart cart) {
         LocalDateTime createdAt = LocalDateTime.now();
         Order newOrder = new Order(userId, cart.getProductsToOrder(), createdAt);
+        cart.clearCart();
+        return orderProcesor.makeOrder(newOrder);
         // TODO: wysłanie do procesowania
     }
 }
