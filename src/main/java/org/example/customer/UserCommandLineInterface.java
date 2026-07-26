@@ -3,16 +3,21 @@ package org.example.customer;
 import lombok.Getter;
 import lombok.Setter;
 import org.example.model.cart.Cart;
+import org.example.model.discount.Discount;
 import org.example.model.invoice.Invoice;
 import org.example.model.order.Order;
+import org.example.model.order.exeptions.ProductNotExists;
+import org.example.model.order.exeptions.SelectedParametersNotAvaliableExeption;
 import org.example.model.product.ConfigurationParameter;
 import org.example.model.product.ProductConfiguration;
 import org.example.model.product.TechnicalParameter;
 import org.example.service.OrderProcesor;
 import org.example.service.manager.ProductManager;
 import org.example.model.product.Product;
+import org.example.service.repository.DiscountRepository;
 
-import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.*;
 import java.util.concurrent.Future;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -21,17 +26,21 @@ public class UserCommandLineInterface {
     private static final AtomicInteger nextId = new AtomicInteger(0);
     private final int userId = nextId.getAndIncrement();
     private final ProductManager productManager;
+    private final DiscountRepository discountRepository;
     private final OrderProcesor orderProcesor;
     private final Invoice invoice;
     @Getter
     @Setter
     private Order lastOrder;
 
-    public UserCommandLineInterface(ProductManager productManager, OrderProcesor orderProcesor, Invoice invoice) {
+    public UserCommandLineInterface(ProductManager productManager, OrderProcesor orderProcesor, Invoice invoice, DiscountRepository discountRepository) {
         this.productManager = productManager;
         this.orderProcesor = orderProcesor;
         this.invoice = invoice;
+        this.discountRepository = discountRepository;
     }
+
+    public List<Discount> getDiscounts() {return discountRepository.getAllDiscount(); }
 
     public List<Product> getProducts() {
         return productManager.getProducts();
@@ -69,11 +78,10 @@ public class UserCommandLineInterface {
         productManager.removeProduct(product);
     }
 
-    public Future<Order> makeOrder(Cart cart) {
-        LocalDateTime createdAt = LocalDateTime.now();
-        Order newOrder = new Order(userId, cart.getProductsToOrder(), createdAt, cart.getTotalPrice());
+    public Future<Order> makeOrder(Cart cart) throws ProductNotExists, SelectedParametersNotAvaliableExeption {
+        ZonedDateTime createdAt = ZonedDateTime.now(ZoneId.of("UTC"));
+        Order newOrder = new Order(userId, cart.getProductsToOrder(), createdAt, cart.getTotalPrice(), cart.getDiscounts());
         cart.clearCart();
-        // todo: try catch
         return orderProcesor.makeOrder(newOrder);
     }
 
