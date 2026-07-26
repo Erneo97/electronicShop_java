@@ -3,11 +3,11 @@ package org.example;
 import org.example.customer.UserCommandLineInterface;
 import org.example.customer.TerminalInterfaceEnum;
 import org.example.model.cart.Cart;
-import org.example.model.discount.Discount;
 import org.example.model.invoice.Invoice;
 import org.example.model.invoice.PolishInvoice;
 import org.example.model.order.Order;
-import org.example.model.order.OrderCannotFulfiledExeption;
+import org.example.model.order.exeptions.ProductNotExists;
+import org.example.model.order.exeptions.SelectedParametersNotAvaliableExeption;
 import org.example.service.OrderProcesor;
 import org.example.service.manager.ProductManager;
 import org.example.service.repository.DiscountRepository;
@@ -104,7 +104,7 @@ public class Main {
             Future<Order> orderResponse = terminal.makeOrder(cart);
             terminal.setLastOrder(orderResponse.get(500, TimeUnit.SECONDS));
             System.out.println("Złożone zamówienie: " + terminal.getLastOrder());
-        } catch (OrderCannotFulfiledExeption e) {
+        } catch (ProductNotExists | SelectedParametersNotAvaliableExeption e) {
             System.err.println(e.getMessage());
         } catch (InterruptedException | TimeoutException | ExecutionException e) {
             throw new RuntimeException(e);
