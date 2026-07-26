@@ -22,9 +22,8 @@ public class Test {
     private static final OrderProcesor orderProcessor = new OrderProcesor(productRepository);
     private static final Invoice polishInvoice = new PolishInvoice();
 
-    public static void main(String[] args) throws ExecutionException, InterruptedException, TimeoutException {
+    public static void main(String[] args){
         UserCommandLineInterface terminal = new UserCommandLineInterface(productManager, orderProcessor, polishInvoice);
-        Cart cart = new Cart();
 
         Discount minus20PercentForAllSmartphones = new Discount(p -> p.getType() == TypeProduct.SMARTPHONE,
                 p -> p.getTotalPrice()
