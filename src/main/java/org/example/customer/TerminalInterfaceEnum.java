@@ -13,6 +13,7 @@ public enum TerminalInterfaceEnum {
     REMOVE_FROM_CART(4),
     ORDER_CART(6),
     INVOICE_LAST_ORDER(7),
+    ADD_DISCOUNT(8),
     EXIT(15),
     NOT_RECOGNIZE_OPERATION(0);
 

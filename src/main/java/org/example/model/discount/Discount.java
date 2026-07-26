@@ -1,5 +1,7 @@
 package org.example.model.discount;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.example.model.product.Product;
 
 import java.math.BigDecimal;
@@ -8,6 +10,7 @@ import java.util.function.Function;
 /**
  * A class representing promotions. Allows you to include a new price according to promotionSize, provided the promotion is current or the product meets the conditions in discountDueCondition.
  */
+@EqualsAndHashCode
 public class Discount {
     private final Function<Product, Boolean> discountDueCondition;
     private final Function<Product, BigDecimal> promotionSize;

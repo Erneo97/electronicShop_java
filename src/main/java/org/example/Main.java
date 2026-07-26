@@ -3,12 +3,14 @@ package org.example;
 import org.example.customer.UserCommandLineInterface;
 import org.example.customer.TerminalInterfaceEnum;
 import org.example.model.cart.Cart;
+import org.example.model.discount.Discount;
 import org.example.model.invoice.Invoice;
 import org.example.model.invoice.PolishInvoice;
 import org.example.model.order.Order;
 import org.example.model.order.OrderCannotFulfiledExeption;
 import org.example.service.OrderProcesor;
 import org.example.service.manager.ProductManager;
+import org.example.service.repository.DiscountRepository;
 import org.example.service.repository.ProductRepository;
 
 import java.util.Scanner;
@@ -22,9 +24,10 @@ public class Main {
     private static final ProductManager productManager = new ProductManager(productRepository);
     private static final OrderProcesor orderProcessor = new OrderProcesor(productRepository);
     private static final Invoice polishInvoice = new PolishInvoice();
+    private static final DiscountRepository discountRepository = new DiscountRepository();
 
     public static void main(String[] args) throws ExecutionException, InterruptedException, TimeoutException {
-        UserCommandLineInterface terminal = new UserCommandLineInterface(productManager, orderProcessor, polishInvoice);
+        UserCommandLineInterface terminal = new UserCommandLineInterface(productManager, orderProcessor, polishInvoice, discountRepository);
         Scanner scanner = new Scanner(System.in);
         Cart cart = new Cart();
 
@@ -69,8 +72,16 @@ public class Main {
             case REMOVE_FROM_CART -> handleRemoveCart(cart);
             case ORDER_CART -> handleOrderCart(terminal, cart);
             case INVOICE_LAST_ORDER -> handleInvoiceLastOrder(terminal);
+            case ADD_DISCOUNT -> handleDiscount(terminal, cart);
             case EXIT -> System.out.println("Dziękujemy za zakupy zapraszamy ponownnie");
         }
+    }
+
+    private static void handleDiscount(UserCommandLineInterface terminal, Cart cart) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Dostępne zniżki" + terminal.getDiscounts() + "\nWybrany index zniżki: ");
+        int index =  Integer.parseInt(scanner.nextLine());
+        cart.addDiscount(terminal.getDiscounts().get(index));
     }
 
     private static void handleRemoveCart(Cart cart) {
