@@ -24,7 +24,9 @@ public class Test {
     public static void main(String[] args){
         UserCommandLineInterface terminal = new UserCommandLineInterface(productManager, orderProcessor, polishInvoice, discountRepository);
 
-        Discount minus20PercentForAllSmartphones = new Discount(p -> p.getType() == TypeProduct.SMARTPHONE,
+        Discount minus20PercentForAllSmartphones = new Discount(
+                "Minus 20 % na wszystkie telefony!"
+                ,p -> p.getType() == TypeProduct.SMARTPHONE,
                 p -> p.getTotalPrice()
                         .subtract(p.getTotalPrice().multiply(BigDecimal.valueOf(0.2))
                         ));

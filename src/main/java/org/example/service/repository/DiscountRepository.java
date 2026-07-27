@@ -14,12 +14,15 @@ public class DiscountRepository {
     private final ReadWriteLock lock = new ReentrantReadWriteLock();
 
     public DiscountRepository() {
-        Discount minus20PercentForAllSmartphones = new Discount(p -> p.getType() == TypeProduct.SMARTPHONE,
+        Discount minus20PercentForAllSmartphones = new Discount ("Minus 20 % na wszystkie telefony!",
+                p -> p.getType() == TypeProduct.SMARTPHONE,
                 p -> p.getTotalPrice()
                         .subtract(p.getTotalPrice().multiply(BigDecimal.valueOf(0.2))
                         ));
 
-        Discount minus200AllElectronics = new Discount(p -> p.getType() == TypeProduct.SMARTPHONE,
+        Discount minus200AllElectronics = new Discount(
+                "200 zł na elektronikę",
+                p -> p.getType() == TypeProduct.SMARTPHONE,
                 p -> p.getTotalPrice()
                         .subtract(BigDecimal.valueOf(200))
         );

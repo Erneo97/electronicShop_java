@@ -1,6 +1,5 @@
 package org.example.model.discount;
 
-import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.example.model.product.Product;
 
@@ -14,10 +13,12 @@ import java.util.function.Function;
 public class Discount {
     private final Function<Product, Boolean> discountDueCondition;
     private final Function<Product, BigDecimal> promotionSize;
+    private final String name;
 
-    public Discount(Function<Product, Boolean> discountDueCondition, Function<Product, BigDecimal> promotionSize) {
+    public Discount(String name, Function<Product, Boolean> discountDueCondition, Function<Product, BigDecimal> promotionSize) {
         this.discountDueCondition = discountDueCondition;
         this.promotionSize = promotionSize;
+        this.name = name;
     }
 
     public BigDecimal applyDiscount(Product product) {
@@ -25,5 +26,10 @@ public class Discount {
             return promotionSize.apply(product);
         }
         return product.getTotalPrice();
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }
