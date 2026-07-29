@@ -12,6 +12,9 @@ import java.util.Optional;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
+/**
+ * A class that allows you to manage products available in the store.
+ */
 @Getter
 public class ProductRepository {
     private final List<Product> products = new ArrayList<>();

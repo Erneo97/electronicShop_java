@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * Stores products that the user intends to buy, allows adding and removing products
+ */
 public class Cart implements Orderlable {
     private final List<CartItem> products = new ArrayList<>();
     @Getter

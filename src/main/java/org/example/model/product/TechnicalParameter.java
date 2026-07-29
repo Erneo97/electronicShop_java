@@ -3,6 +3,9 @@ package org.example.model.product;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+/**
+ * Available configuration parameters
+ */
 @Getter
 @RequiredArgsConstructor
 public enum TechnicalParameter {

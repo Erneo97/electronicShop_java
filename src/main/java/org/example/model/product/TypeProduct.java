@@ -2,6 +2,9 @@ package org.example.model.product;
 
 import java.util.Arrays;
 
+/**
+ * Available types of produc in the store
+ */
 public enum TypeProduct {
     SMARTPHONE("Smartfon"), COMPUTER("Komputer"), ELECTRONICS("Elektronika");
 

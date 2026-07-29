@@ -7,6 +7,9 @@ import org.example.model.order.ParameterOfOrder;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
+/**
+ * Class generates an invoice for an order in Polish
+ */
 public class PolishInvoice implements Invoice {
     private static final DateTimeFormatter DATE_FORMATTER =
             DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm", new Locale("pl", "PL"));

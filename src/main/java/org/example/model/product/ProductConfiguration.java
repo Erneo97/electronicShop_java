@@ -6,6 +6,9 @@ import java.util.*;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * A class representing the available configuration for a given product.
+ */
 @Getter
 @Setter
 public class ProductConfiguration {

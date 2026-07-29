@@ -9,6 +9,9 @@ import java.math.BigDecimal;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * A class representing a product. A product consists of an ID, available configuration for a given model, name, description, and the type of product being sold.
+ */
 @Data
 public class Product implements Shoppable {
     private static AtomicInteger counterID = new AtomicInteger(0);

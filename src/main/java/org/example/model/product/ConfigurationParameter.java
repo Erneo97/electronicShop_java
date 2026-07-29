@@ -15,6 +15,13 @@ public final class ConfigurationParameter {
     private final int id;
     private int quantity;
 
+    /**
+     * This class represents a product configuration parameter. It allows you to specify the type of parameter, such as memory size, color, etc., the value it contains, stock status, and the impact of a given parameter on price.
+     * @param parameter
+     * @param value
+     * @param price
+     * @param quantity
+     */
     public ConfigurationParameter(
             TechnicalParameter parameter,
             String value,
