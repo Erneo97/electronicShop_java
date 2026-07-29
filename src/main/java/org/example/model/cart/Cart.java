@@ -29,8 +29,8 @@ public class Cart implements Orderlable {
 
     public void removeFromCartByIndex(int index) {
         try {
-        products.remove(index);
-        }catch (IndexOutOfBoundsException e) {
+            products.remove(index);
+        } catch (IndexOutOfBoundsException e) {
             System.err.println(e.getMessage());
         }
     }

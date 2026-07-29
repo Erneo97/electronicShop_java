@@ -125,7 +125,7 @@ public class Main {
 
     private static void handleInvoiceLastOrder(UserCommandLineInterface terminal) {
         if (terminal.getLastOrder() != null) {
-            System.out.println("\tWygenerowana faktura:\n" + terminal.generateInvoicByOrder(terminal.getLastOrder()));
+            System.out.println("\tWygenerowana faktura:\n" + terminal.generateInvoiceByOrder(terminal.getLastOrder()));
         } else {
             System.out.println("Nie złożono zamówienia");
         }

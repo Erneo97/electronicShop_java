@@ -41,7 +41,9 @@ public class UserCommandLineInterface {
         this.discountRepository = discountRepository;
     }
 
-    public List<Discount> getDiscounts() {return discountRepository.getAllDiscount(); }
+    public List<Discount> getDiscounts() {
+        return discountRepository.getAllDiscount();
+    }
 
     public List<Product> getProducts() {
         return productManager.getProducts();
@@ -67,20 +69,12 @@ public class UserCommandLineInterface {
         System.out.printf("Wybrany produkt: %s\nPodaj ilość wybranego produktu", products.get(productId));
         int quantituSelectedProduct = scanner.nextInt();
 
-        List<Product>  selectedProducts = new ArrayList<>();
+        List<Product> selectedProducts = new ArrayList<>();
         for (int i = 0; i < quantituSelectedProduct; i++) {
-            System.out.println("Konfiguracja dla sztuki nr. " + (i+1));
+            System.out.println("Konfiguracja dla sztuki nr. " + (i + 1));
             selectedProducts.add(selectProductConfiguration(scanner, products.get(productId)));
         }
         return selectedProducts;
-    }
-
-    public void addProduct(Product product) {
-        productManager.addProduct(product);
-    }
-
-    public void removeProduct(Product product) {
-        productManager.removeProduct(product);
     }
 
     public Future<Order> makeOrder(Cart cart) throws ProductNotExists, SelectedParametersNotAvaliableExeption {
@@ -90,7 +84,7 @@ public class UserCommandLineInterface {
         return orderProcesor.makeOrder(newOrder);
     }
 
-    public String generateInvoicByOrder(Order order) {
+    public String generateInvoiceByOrder(Order order) {
         return invoice.generateOrderInvoice(order);
     }
 
@@ -99,20 +93,18 @@ public class UserCommandLineInterface {
         ProductConfiguration newConfiguration = new ProductConfiguration();
         Set<TechnicalParameter> categories = configuration.getCategories();
 
-        categories.forEach(
-                category -> {
-                    int selectedIndex = -1;
-                    List<ConfigurationParameter> parameters = configuration.getParametersByCategory(category);
-                    displayParametersOnCategory(category, parameters);
-                    while (selectedIndex < 1 || selectedIndex > parameters.size()) {
-                        System.out.print("Wybierz konfigurację ");
-                        selectedIndex = scanner.nextInt();
-                    }
-                    parameters.get(selectedIndex - 1).setQuantity(1);
-                    System.out.println("Wybrano: " + parameters.get(selectedIndex - 1).getValue());
-                    newConfiguration.addParameterToConfiguration(parameters.get(selectedIndex - 1));
-                }
-        );
+        categories.forEach(category -> {
+            int selectedIndex = -1;
+            List<ConfigurationParameter> parameters = configuration.getParametersByCategory(category);
+            displayParametersOnCategory(category, parameters);
+            while (selectedIndex < 1 || selectedIndex > parameters.size()) {
+                System.out.print("Wybierz konfigurację ");
+                selectedIndex = scanner.nextInt();
+            }
+            parameters.get(selectedIndex - 1).setQuantity(1);
+            System.out.println("Wybrano: " + parameters.get(selectedIndex - 1).getValue());
+            newConfiguration.addParameterToConfiguration(parameters.get(selectedIndex - 1));
+        });
         System.out.println("Wybrana konfiguracja: " + newConfiguration);
 
         return product.copyWithConfiguration(newConfiguration);

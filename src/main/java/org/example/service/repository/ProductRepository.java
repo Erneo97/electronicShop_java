@@ -93,9 +93,9 @@ public class ProductRepository {
 
     private ProductConfiguration getTestSmartphoneVariant2() {
         ProductConfiguration variant = new ProductConfiguration();
-        variant.addParameterToConfiguration(new ConfigurationParameter(TechnicalParameter.COLOR, "Blue", BigDecimal.valueOf(0L), 3));
-        variant.addParameterToConfiguration(new ConfigurationParameter(TechnicalParameter.MEMORY, "120 GB", BigDecimal.valueOf(100L), 3));
-        variant.addParameterToConfiguration(new ConfigurationParameter(TechnicalParameter.PROCESSOR, "7 GHz", BigDecimal.valueOf(1500L), 3));
+        variant.addParameterToConfiguration(new ConfigurationParameter(TechnicalParameter.COLOR, "Blue", BigDecimal.valueOf(0L), 5));
+        variant.addParameterToConfiguration(new ConfigurationParameter(TechnicalParameter.MEMORY, "120 GB", BigDecimal.valueOf(100L), 2));
+        variant.addParameterToConfiguration(new ConfigurationParameter(TechnicalParameter.PROCESSOR, "7 GHz", BigDecimal.valueOf(1500L), 13));
         variant.addParameterToConfiguration(new ConfigurationParameter(TechnicalParameter.RAM_SIZE, "16 GB", BigDecimal.valueOf(100L), 3));
         return variant;
     }
