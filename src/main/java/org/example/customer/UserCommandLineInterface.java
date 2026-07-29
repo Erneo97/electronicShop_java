@@ -16,6 +16,7 @@ import org.example.service.manager.ProductManager;
 import org.example.model.product.Product;
 import org.example.service.repository.DiscountRepository;
 
+import java.math.BigDecimal;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.*;
@@ -48,6 +49,10 @@ public class UserCommandLineInterface {
 
     public void displayProducts() {
         getProducts().forEach(System.out::println);
+    }
+
+    public BigDecimal getDiscountPriceForCart(Cart cart) {
+        return orderProcesor.getTotalDiscount(cart.getProductsToOrder(), cart.getDiscounts());
     }
 
     public List<Product> selectProduct() {

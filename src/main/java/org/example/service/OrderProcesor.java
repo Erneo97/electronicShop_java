@@ -1,5 +1,6 @@
 package org.example.service;
 
+import org.example.model.discount.Discount;
 import org.example.model.order.Order;
 import org.example.model.order.OrderItem;
 import org.example.model.order.ParameterOfOrder;
@@ -8,6 +9,7 @@ import org.example.model.order.exeptions.SelectedParametersNotAvaliableExeption;
 import org.example.model.product.Product;
 import org.example.service.repository.ProductRepository;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -25,7 +27,6 @@ public class OrderProcesor {
         this.productRepository = productRepository;
     }
 
-
     public Future<Order> makeOrder(Order order) {
         return executorService.submit(() -> {
             List<OrderItem> aggregatedOrderedProducts = aggregateOrderItems(order.products());
@@ -34,6 +35,21 @@ public class OrderProcesor {
             productRepository.decreaseStock(aggregatedOrderedProducts);
             return order;
         });
+    }
+
+    public BigDecimal getTotalDiscount(List<OrderItem> orderItems, List<Discount> discounts) {
+        BigDecimal totalDiscount = BigDecimal.ZERO;
+        for (Discount discount : discounts) {
+            for (OrderItem orderItem : orderItems) {
+                Product product = productRepository.getProductById(orderItem.idProduct())
+                        .orElseThrow();
+                BigDecimal priceDifference =
+                        product.getTotalPrice()
+                                .subtract(discount.applyDiscount(product));
+                totalDiscount = totalDiscount.add(priceDifference);
+            }
+        }
+        return totalDiscount;
     }
 
     private void validateOrderItems(List<OrderItem> orderItems) throws ProductNotExists, SelectedParametersNotAvaliableExeption {

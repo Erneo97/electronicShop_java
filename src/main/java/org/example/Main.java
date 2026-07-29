@@ -18,6 +18,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Main {
     private static final ProductRepository productRepository = new ProductRepository();
@@ -53,6 +54,7 @@ public class Main {
                         %d - Usuń produkt z koszyka
                         %d - Złóż zamówienie
                         %d - Wyświetl fakturę za ostatie zamówienie
+                        %d - Dodaj zniżkę
                         %d - Zamknij sklep
                         Twój wybór:""",
                 TerminalInterfaceEnum.LIST_PRODUCT.getOperation(),
@@ -61,6 +63,7 @@ public class Main {
                 TerminalInterfaceEnum.REMOVE_FROM_CART.getOperation(),
                 TerminalInterfaceEnum.ORDER_CART.getOperation(),
                 TerminalInterfaceEnum.INVOICE_LAST_ORDER.getOperation(),
+                TerminalInterfaceEnum.ADD_DISCOUNT.getOperation(),
                 TerminalInterfaceEnum.EXIT.getOperation());
     }
 
@@ -79,9 +82,15 @@ public class Main {
 
     private static void handleDiscount(UserCommandLineInterface terminal, Cart cart) {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Dostępne zniżki" + terminal.getDiscounts() + "\nWybrany index zniżki: ");
-        int index =  Integer.parseInt(scanner.nextLine());
-        cart.addDiscount(terminal.getDiscounts().get(index));
+        AtomicInteger indexDisplay = new AtomicInteger(0);
+        System.out.print("Dostępne zniżki\n");
+        terminal.getDiscounts().forEach(discount ->
+                System.out.printf("%d) %s%n", indexDisplay.getAndIncrement(), discount)
+        );
+        System.out.println("Wybrany index zniżki: ");
+        int selecteDiscountdIndex = scanner.nextInt();
+        cart.addDiscount(terminal.getDiscounts().get(selecteDiscountdIndex));
+        cart.setDiscountPrice(terminal.getDiscountPriceForCart(cart));
     }
 
     private static void handleRemoveCart(Cart cart) {
@@ -103,10 +112,10 @@ public class Main {
         try {
             Future<Order> orderResponse = terminal.makeOrder(cart);
             terminal.setLastOrder(orderResponse.get(500, TimeUnit.SECONDS));
-            System.out.println("Złożone zamówienie: " + terminal.getLastOrder());
-        } catch (ExecutionException | InterruptedException | TimeoutException e) {
+            System.out.println("Złożone zamówienie:" + terminal.getLastOrder());
+        } catch (ExecutionException | InterruptedException | TimeoutException e) { // TODO: sprawdzić
             Throwable cause = e.getCause();
-            if(cause instanceof ProductNotExists || cause instanceof SelectedParametersNotAvaliableExeption) {
+            if (cause instanceof ProductNotExists || cause instanceof SelectedParametersNotAvaliableExeption) {
                 System.err.println(e.getMessage());
             }
         } catch (ProductNotExists | SelectedParametersNotAvaliableExeption e) {

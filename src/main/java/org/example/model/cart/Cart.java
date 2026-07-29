@@ -2,6 +2,7 @@ package org.example.model.cart;
 
 import lombok.Getter;
 import lombok.NonNull;
+import lombok.Setter;
 import org.example.model.discount.Discount;
 import org.example.model.order.OrderItem;
 import org.example.model.order.Orderlable;
@@ -18,6 +19,8 @@ public class Cart implements Orderlable {
     private BigDecimal totalPrice = BigDecimal.ZERO;
     @Getter
     private final List<Discount> discounts = new ArrayList<>();
+    @Setter
+    private BigDecimal discountPrice = BigDecimal.ZERO;
 
     public void addToCart(@NonNull Shoppable product) {
         products.add(product.addToCart());
@@ -25,7 +28,11 @@ public class Cart implements Orderlable {
     }
 
     public void removeFromCartByIndex(int index) {
+        try {
         products.remove(index);
+        }catch (IndexOutOfBoundsException e) {
+            System.err.println(e.getMessage());
+        }
     }
 
     public void addDiscount(Discount discount) {
@@ -46,6 +53,7 @@ public class Cart implements Orderlable {
                     product.selectedVariant()));
         });
         sb.append(String.format("Całkowita cena: %.2f\n", totalPrice));
+        sb.append(String.format("Całkowita cena (ze zniżkami): %.2f\n", totalPrice.subtract(discountPrice)));
         return sb.toString();
     }
 
