@@ -105,8 +105,8 @@ public class Main {
             terminal.setLastOrder(orderResponse.get(500, TimeUnit.SECONDS));
             System.out.println("Złożone zamówienie: " + terminal.getLastOrder());
         } catch (ProductNotExists | SelectedParametersNotAvaliableExeption e) {
-            System.err.println(e.getMessage());
-        } catch (InterruptedException | TimeoutException | ExecutionException e) {
+            System.err.println("Wystapił błąd: " + e.getMessage());
+        } catch (ExecutionException | InterruptedException | TimeoutException e) {
             throw new RuntimeException(e);
         }
     }
