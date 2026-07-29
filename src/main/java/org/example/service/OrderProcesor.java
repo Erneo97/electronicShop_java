@@ -28,15 +28,16 @@ public class OrderProcesor {
 
     public Future<Order> makeOrder(Order order) {
         return executorService.submit(() -> {
-            validateOrder(order);
+            List<OrderItem> aggregatedOrderedProducts = aggregateOrderItems(order.products());
+            validateOrderItems(aggregatedOrderedProducts);
             orders.add(order);
+            productRepository.decreaseStock(aggregatedOrderedProducts);
             return order;
         });
     }
 
-    private void validateOrder(Order order) throws ProductNotExists, SelectedParametersNotAvaliableExeption {
-        List<OrderItem> aggregatedOrderedProducts = aggregateOrderItems(order.products());
-        for (OrderItem orderItem : aggregatedOrderedProducts) {
+    private void validateOrderItems(List<OrderItem> orderItems) throws ProductNotExists, SelectedParametersNotAvaliableExeption {
+        for (OrderItem orderItem : orderItems) {
             Product existedProduct = validateProductsInOrderAndGet(orderItem);
             validateAvailableConfigurationProduct(orderItem, existedProduct);
         }

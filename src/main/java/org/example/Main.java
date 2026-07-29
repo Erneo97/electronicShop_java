@@ -104,9 +104,12 @@ public class Main {
             Future<Order> orderResponse = terminal.makeOrder(cart);
             terminal.setLastOrder(orderResponse.get(500, TimeUnit.SECONDS));
             System.out.println("Złożone zamówienie: " + terminal.getLastOrder());
-        } catch (ProductNotExists | SelectedParametersNotAvaliableExeption e) {
-            System.err.println("Wystapił błąd: " + e.getMessage());
         } catch (ExecutionException | InterruptedException | TimeoutException e) {
+            Throwable cause = e.getCause();
+            if(cause instanceof ProductNotExists || cause instanceof SelectedParametersNotAvaliableExeption) {
+                System.err.println(e.getMessage());
+            }
+        } catch (ProductNotExists | SelectedParametersNotAvaliableExeption e) {
             throw new RuntimeException(e);
         }
     }
