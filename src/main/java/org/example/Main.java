@@ -47,7 +47,7 @@ public class Main {
 
     private static void displayMenu() {
         System.out.printf("""
-                        Dozwolone komendy w sklepie:
+                        Dostępne komendy w sklepie:
                         %d - Wyświetl listę produktów
                         %d - Wyświetl koszyk
                         %d - Dodaj produkt do koszyka
