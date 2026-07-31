@@ -4,7 +4,9 @@ import org.example.model.order.Order;
 import org.example.model.order.OrderItem;
 import org.example.model.order.ParameterOfOrder;
 import org.example.model.order.exeptions.ProductNotExistsExeptions;
+import org.example.model.order.exeptions.SelectedParametersNotAvaliableExeption;
 import org.example.model.product.Product;
+import org.example.model.product.ProductConfiguration;
 import org.example.service.repository.ProductRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -42,6 +44,42 @@ class OrderProcesorTest {
 
         assertThatThrownBy(future::get)
                 .hasCauseInstanceOf(ProductNotExistsExeptions.class);
+    }
+
+    @Test
+    void shouldThrowExceptionWhenQuantityIsTooLow() {
+        when(productRepository.getProductById(1))
+                .thenReturn(Optional.of(getOrderProductOrderQuantity0()));
+
+        Order order = createOrderWithQuantity(5);
+
+        Future<Order> future = orderProcessor.makeOrder(order);
+
+        assertThatThrownBy(future::get)
+                .hasCauseInstanceOf(SelectedParametersNotAvaliableExeption.class);
+    }
+
+    private Order createOrderWithQuantity(int quantity) {
+        return new Order(0,
+                List.of(
+                        new OrderItem(
+                                1,
+                                List.of(new ParameterOfOrder(1, quantity)))
+                ),
+                ZonedDateTime.now(),
+                BigDecimal.valueOf(123),
+                List.of());
+    }
+
+    private Product getOrderProductOrderQuantity0() {
+        Product producQuantity = new Product(
+                "Nowy produkt",
+                BigDecimal.ZERO
+        );
+        producQuantity.addConfiguration(
+                new ProductConfiguration()
+        );
+        return producQuantity;
     }
 
     private Order getOrderProductNotExist() {
