@@ -34,7 +34,7 @@ class OrderProcesorTest {
     private OrderProcesor orderProcessor;
 
     @Test
-    void shouldThrowExceptionWhenProductDoesNotExist() {
+    public void shouldThrowExceptionWhenProductDoesNotExist() {
         Order order = getOrderProductNotExist();
 
         when(productRepository.getProductById(11))
@@ -47,7 +47,7 @@ class OrderProcesorTest {
     }
 
     @Test
-    void shouldThrowExceptionWhenQuantityIsTooLow() {
+    public void shouldThrowExceptionWhenQuantityIsTooLow() {
         when(productRepository.getProductById(1))
                 .thenReturn(Optional.of(getOrderProductOrderQuantity0()));
 
@@ -60,7 +60,7 @@ class OrderProcesorTest {
     }
 
     @Test
-    void shouldProcessOrderSuccessfully() {
+    public void shouldProcessOrderSuccessfully() {
         Product product = getCorrectProductId1();
         when(productRepository.getProductById(1))
                 .thenReturn(Optional.of(product));
