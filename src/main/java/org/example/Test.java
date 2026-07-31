@@ -21,12 +21,12 @@ public class Test {
     private static final DiscountRepository discountRepository = new DiscountRepository();
 
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
         UserCommandLineInterface terminal = new UserCommandLineInterface(productManager, orderProcessor, polishInvoice, discountRepository);
 
         Discount minus20PercentForAllSmartphones = new Discount(
                 "Minus 20 % na wszystkie telefony!"
-                ,p -> p.getType() == TypeProduct.SMARTPHONE,
+                , p -> p.getType() == TypeProduct.SMARTPHONE,
                 p -> p.getTotalPrice()
                         .subtract(p.getTotalPrice().multiply(BigDecimal.valueOf(0.2))
                         ));
