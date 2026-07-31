@@ -6,7 +6,7 @@ import org.example.model.cart.Cart;
 import org.example.model.discount.Discount;
 import org.example.model.invoice.Invoice;
 import org.example.model.order.Order;
-import org.example.model.order.exeptions.ProductNotExists;
+import org.example.model.order.exeptions.ProductNotExistsExeptions;
 import org.example.model.order.exeptions.SelectedParametersNotAvaliableExeption;
 import org.example.model.product.ConfigurationParameter;
 import org.example.model.product.ProductConfiguration;
@@ -77,7 +77,7 @@ public class UserCommandLineInterface {
         return selectedProducts;
     }
 
-    public Future<Order> makeOrder(Cart cart) throws ProductNotExists, SelectedParametersNotAvaliableExeption {
+    public Future<Order> makeOrder(Cart cart) throws ProductNotExistsExeptions, SelectedParametersNotAvaliableExeption {
         ZonedDateTime createdAt = ZonedDateTime.now(ZoneId.of("UTC"));
         Order newOrder = new Order(userId, cart.getProductsToOrder(), createdAt, cart.getTotalPrice(), cart.getDiscounts());
         cart.clearCart();

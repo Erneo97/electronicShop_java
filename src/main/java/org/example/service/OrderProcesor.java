@@ -4,7 +4,7 @@ import org.example.model.discount.Discount;
 import org.example.model.order.Order;
 import org.example.model.order.OrderItem;
 import org.example.model.order.ParameterOfOrder;
-import org.example.model.order.exeptions.ProductNotExists;
+import org.example.model.order.exeptions.ProductNotExistsExeptions;
 import org.example.model.order.exeptions.SelectedParametersNotAvaliableExeption;
 import org.example.model.product.Product;
 import org.example.service.repository.ProductRepository;
@@ -52,7 +52,7 @@ public class OrderProcesor {
         return totalDiscount;
     }
 
-    private void validateOrderItems(List<OrderItem> orderItems) throws ProductNotExists, SelectedParametersNotAvaliableExeption {
+    private void validateOrderItems(List<OrderItem> orderItems) throws ProductNotExistsExeptions, SelectedParametersNotAvaliableExeption {
         for (OrderItem orderItem : orderItems) {
             Product existedProduct = validateProductsInOrderAndGet(orderItem);
             validateAvailableConfigurationProduct(orderItem, existedProduct);
@@ -88,10 +88,10 @@ public class OrderProcesor {
                 .toList();
     }
 
-    private Product validateProductsInOrderAndGet(OrderItem orderItem) throws ProductNotExists {
+    private Product validateProductsInOrderAndGet(OrderItem orderItem) throws ProductNotExistsExeptions {
         Optional<Product> optProduct = productRepository.getProductById(orderItem.idProduct());
         if (optProduct.isEmpty()) {
-            throw new ProductNotExists(String.format("Produkt z id %s nie znaleziony", orderItem.idProduct()));
+            throw new ProductNotExistsExeptions(String.format("Produkt z id %s nie znaleziony", orderItem.idProduct()));
         }
         return optProduct.get();
     }

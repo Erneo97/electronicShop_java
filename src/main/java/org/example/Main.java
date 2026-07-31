@@ -6,7 +6,7 @@ import org.example.model.cart.Cart;
 import org.example.model.invoice.Invoice;
 import org.example.model.invoice.PolishInvoice;
 import org.example.model.order.Order;
-import org.example.model.order.exeptions.ProductNotExists;
+import org.example.model.order.exeptions.ProductNotExistsExeptions;
 import org.example.model.order.exeptions.SelectedParametersNotAvaliableExeption;
 import org.example.service.OrderProcesor;
 import org.example.service.manager.ProductManager;
@@ -115,10 +115,10 @@ public class Main {
             System.out.println("Złożone zamówienie:" + terminal.getLastOrder());
         } catch (ExecutionException | InterruptedException | TimeoutException e) { // TODO: sprawdzić
             Throwable cause = e.getCause();
-            if (cause instanceof ProductNotExists || cause instanceof SelectedParametersNotAvaliableExeption) {
+            if (cause instanceof ProductNotExistsExeptions || cause instanceof SelectedParametersNotAvaliableExeption) {
                 System.err.println(e.getMessage());
             }
-        } catch (ProductNotExists | SelectedParametersNotAvaliableExeption e) {
+        } catch (ProductNotExistsExeptions | SelectedParametersNotAvaliableExeption e) {
             throw new RuntimeException(e);
         }
     }
