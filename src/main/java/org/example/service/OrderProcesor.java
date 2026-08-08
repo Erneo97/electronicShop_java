@@ -33,7 +33,7 @@ public class OrderProcesor {
         return executorService.submit(() -> {
             List<OrderItem> aggregatedOrderedProducts = aggregateOrderItems(order.products());
             validateOrderItems(aggregatedOrderedProducts);
-            orders.add(order);
+            orders.add(order);`
             productRepository.decreaseStock(aggregatedOrderedProducts);
             return order;
         });
