@@ -40,18 +40,18 @@ public class OrderProcesor {
     }
 
     public BigDecimal getTotalDiscount(List<OrderItem> orderItems, List<Discount> discounts) {
-        BigDecimal totalDiscount = BigDecimal.ZERO;
-        for (Discount discount : discounts) {
-            for (OrderItem orderItem : orderItems) {
-                Product product = productRepository.getProductById(orderItem.idProduct())
-                        .orElseThrow();
-                BigDecimal priceDifference =
-                        product.getTotalPrice()
-                                .subtract(discount.applyDiscount(product));
-                totalDiscount = totalDiscount.add(priceDifference);
-            }
-        }
-        return totalDiscount;
+        return orderItems.stream().map(orderItem -> {
+            Product product = productRepository.getProductById(orderItem.idProduct())
+                    .orElseThrow();
+            return getTotalDiscountForProduct(product, discounts);
+        }).reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    private BigDecimal getTotalDiscountForProduct(Product product, List<Discount> discounts) {
+        return discounts.stream()
+                .map(discount -> product.getTotalPrice()
+                            .subtract(discount.applyDiscount(product)))
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
     public void disconectUser() {
@@ -107,13 +107,13 @@ public class OrderProcesor {
 
 
     private void validateAvailableConfigurationProduct(OrderItem orderedProduct, Product product) throws SelectedParametersNotAvaliableExeption {
-        for (ParameterOfOrder parameterOfOrder : orderedProduct.parameters()) {
+        orderedProduct.parameters().forEach(parameterOfOrder -> {
             if (!validateQuantityParametersProduct(product, parameterOfOrder)) {
                 throw new SelectedParametersNotAvaliableExeption(
                         String.format("Product id: %s nie posiada wystarczającej ilości konfiguracji o id %s", product.getId(), parameterOfOrder.idParameter())
                 );
             }
-        }
+        });
     }
 
     private boolean validateQuantityParametersProduct(Product product, ParameterOfOrder parameter) {
