@@ -27,7 +27,7 @@ public class Main {
     private static final Invoice polishInvoice = new PolishInvoice();
     private static final DiscountRepository discountRepository = new DiscountRepository();
 
-    public static void main(String[] args) throws ExecutionException, InterruptedException, TimeoutException {
+    public static void main(String[] args){
         UserCommandLineInterface terminal = new UserCommandLineInterface(productManager, orderProcessor, polishInvoice, discountRepository);
         Scanner scanner = new Scanner(System.in);
         Cart cart = new Cart();
