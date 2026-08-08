@@ -2,7 +2,6 @@ package org.example.service.repository;
 
 import lombok.Getter;
 import org.example.model.order.OrderItem;
-import org.example.model.order.ParameterOfOrder;
 import org.example.model.product.*;
 
 import java.math.BigDecimal;
@@ -46,18 +45,11 @@ public class ProductRepository {
     public void decreaseStock(List<OrderItem> orderItems) {
         lock.writeLock().lock();
         try {
-            for (OrderItem orderItem : orderItems) {
+            orderItems.forEach(orderItem -> {
                 Product product = getProductById(orderItem.idProduct())
                         .orElseThrow();
-
-                for (ParameterOfOrder parameter : orderItem.parameters()) {
-                    ConfigurationParameter configuration = product.getConfigurationById(parameter.idParameter())
-                            .orElseThrow();
-                    configuration.setQuantity(
-                            configuration.getQuantity() - parameter.quantity()
-                    );
-                }
-            }
+                decreaseParametersStockProductForOrderItem(product, orderItem);
+            });
         } finally {
             lock.writeLock().unlock();
         }
@@ -71,6 +63,16 @@ public class ProductRepository {
         lock.readLock().unlock();
         return optFoundProduct;
 
+    }
+
+    private void decreaseParametersStockProductForOrderItem(Product product, OrderItem orderItem) {
+        orderItem.parameters().forEach(parameter -> {
+            ConfigurationParameter configuration = product.getConfigurationById(parameter.idParameter())
+                    .orElseThrow();
+            configuration.setQuantity(
+                    configuration.getQuantity() - parameter.quantity()
+            );
+        });
     }
 
     private void initProductsSmartphone(List<Product> products) {
