@@ -116,7 +116,7 @@ public class Main {
             Future<Order> orderResponse = terminal.makeOrder(cart);
             terminal.setLastOrder(orderResponse.get(500, TimeUnit.SECONDS));
             System.out.println("Złożone zamówienie:" + terminal.getLastOrder());
-        } catch (ExecutionException | InterruptedException | TimeoutException e) { // TODO: sprawdzić
+        } catch (ExecutionException | InterruptedException | TimeoutException e) {
             Throwable cause = e.getCause();
             if (cause instanceof ProductNotExistsExeptions || cause instanceof SelectedParametersNotAvaliableExeption) {
                 System.err.println(e.getMessage());
