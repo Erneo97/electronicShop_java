@@ -76,7 +76,10 @@ public class Main {
             case ORDER_CART -> handleOrderCart(terminal, cart);
             case INVOICE_LAST_ORDER -> handleInvoiceLastOrder(terminal);
             case ADD_DISCOUNT -> handleDiscount(terminal, cart);
-            case EXIT -> System.out.println("Dziękujemy za zakupy zapraszamy ponownnie");
+            case EXIT -> {
+                System.out.println("Dziękujemy za zakupy zapraszamy ponownnie");
+                orderProcessor.disconectUser();
+            }
         }
     }
 

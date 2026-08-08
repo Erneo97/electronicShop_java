@@ -22,9 +22,11 @@ public class OrderProcesor {
     private final ProductRepository productRepository;
     private final List<Order> orders = new ArrayList<>();
     private final ExecutorService executorService = Executors.newSingleThreadExecutor();
+    private static int counterUsersServed = 0;
 
     public OrderProcesor(ProductRepository productRepository) {
         this.productRepository = productRepository;
+        counterUsersServed++;
     }
 
     public Future<Order> makeOrder(Order order) {
@@ -50,6 +52,13 @@ public class OrderProcesor {
             }
         }
         return totalDiscount;
+    }
+
+    public void disconectUser() {
+        counterUsersServed--;
+        if (counterUsersServed == 0) {
+            executorService.shutdown();
+        }
     }
 
     private void validateOrderItems(List<OrderItem> orderItems) throws ProductNotExistsExeptions, SelectedParametersNotAvaliableExeption {
