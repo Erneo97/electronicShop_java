@@ -62,11 +62,10 @@ public class OrderProcesor {
     }
 
     private void validateOrderItems(List<OrderItem> orderItems) throws ProductNotExistsExeptions, SelectedParametersNotAvaliableExeption {
-        for (OrderItem orderItem : orderItems) {
+        orderItems.forEach(orderItem ->  {
             Product existedProduct = validateProductsInOrderAndGet(orderItem);
             validateAvailableConfigurationProduct(orderItem, existedProduct);
-        }
-
+        });
     }
 
     private List<OrderItem> aggregateOrderItems(List<OrderItem> orderItems) {
